@@ -1,0 +1,21 @@
+.App {
+  text-align: center;
+  width: 425px;
+  height: 760px;
+  margin: auto;
+}
+
+.bg {
+  /* background-image: url(./images/backgroud.png); */
+  background: linear-gradient(0deg, #89f7fe 0%, #66a6ff 100%);
+  background-repeat: no-repeat;
+  background-size: 425px 760px;
+}
+
+.bgc-w {
+  background-color: white !important;
+}
+
+.h-50px {
+  height: 40px !important;
+}
