@@ -1,0 +1,30 @@
+.oxy-area {
+  padding: 0px 10px;
+  height: 100%;
+  border-radius: 10px;
+  width: 100px;
+  margin: auto;
+  position: relative;
+}
+
+.oxy-num {
+  position: absolute;
+  height: 100%;
+  top: -18px;
+}
+
+.oxy-img {
+  width: 15px;
+  height: 15px;
+}
+
+.number {
+  padding: 0px 10px;
+}
+
+.top {
+  background-color: red;
+  display: flex;
+  height: 100%;
+  margin: auto;
+}

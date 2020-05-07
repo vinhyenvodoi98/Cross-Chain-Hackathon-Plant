@@ -1,27 +1,19 @@
-import React from 'react';
+import React from "react";
+import oxyImg from "../../images/oxygen_bubble_big.png";
 
-function Oxy(num) {
-  return (
-    <div className="oxy">
-      {/* <div className="bloc1" />
-      <div className="bloc2">{num.value}</div> */}
-    </div>
-  )
-}
-
-function Level(num) {
-  return (
-    <div className="lv">
-      Level {num.value}
-    </div>
-  )
-}
+import "./top.css";
 
 function Top() {
-  return <div>
-      <Oxy  value={"100k"} />
-      <Level  value={"3"} />
-  </div>;
+  return (
+    <div>
+      <div className="oxy-area">
+        <div className="oxy-num">
+          <img src={oxyImg} className="oxy-img" alt="oxy" />
+          <strong className="number">100k</strong>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default Top;

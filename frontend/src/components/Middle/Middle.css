@@ -1,0 +1,37 @@
+.shelf {
+  width: 100%;
+}
+
+.plant-area {
+  /* height: 80; */
+  margin-top: auto;
+  margin-bottom: auto;
+  /* position: relative; */
+  line-height: 0 !important;
+}
+
+.row {
+  height: 130px;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  margin-top: 0;
+  line-height: 1.5;
+  padding-right: 10px;
+}
+
+.plant {
+  padding: 0 10px;
+  background-color: red;
+  /* width: 80%; */
+  margin-left: 10px;
+  position: relative;
+}
+
+.plantImg {
+  margin: auto;
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  max-height: 100%;
+}
