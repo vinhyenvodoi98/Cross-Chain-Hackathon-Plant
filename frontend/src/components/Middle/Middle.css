@@ -13,25 +13,50 @@
 .row {
   height: 130px;
   display: grid;
-  grid-template-columns: auto auto auto auto;
-  margin-top: 0;
+  grid-template-columns: 25% 25% 25% 25%;
   line-height: 1.5;
-  padding-right: 10px;
 }
 
 .plant {
-  padding: 0 10px;
-  background-color: red;
-  /* width: 80%; */
-  margin-left: 10px;
+  /* padding: 0 10px;
+  margin-left: 10px; */
+  /* position: relative; */
+}
+
+.stem {
+  height: 70%;
   position: relative;
+  width: 30%;
+  margin: 0 auto;
+}
+
+.pot {
+  height: 30%;
+  width: 50%;
+  margin: 0 auto;
 }
 
 .plantImg {
   margin: auto;
   width: 100%;
   position: absolute;
-  bottom: 0px;
+  bottom: -2.5px;
   left: 0px;
-  max-height: 100%;
+  max-height: 80%;
+}
+
+.potImg {
+  height: 100%;
+  width: 100%;
+}
+
+.customOverlay {
+  background: white;
+  opacity: 0;
+}
+.customModal {
+  background: #b2dbbf;
+  /* max-width: 500px; */
+  width: 50%;
+  opacity: 1;
 }

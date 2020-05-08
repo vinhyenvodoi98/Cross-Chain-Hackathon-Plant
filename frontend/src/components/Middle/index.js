@@ -1,14 +1,19 @@
 import React from "react";
 import shelfImg from "../../images/shelf_side_rotate.png";
 import testPlant from "../../images/bellpeppers1_background.png";
-
+import testPot from "../../images/pot_empty.png";
 import "./Middle.css";
 
 function Plant(props) {
   if (props.plant) {
     return (
       <div className="plant">
-        <img src={testPlant} alt="" className="plantImg" />
+        <div className="stem">
+          <img src={testPlant} alt="" className="plantImg" />
+        </div>
+        <div className="pot">
+          <img src={testPot} alt="" className="potImg" />
+        </div>
       </div>
     );
   } else {
@@ -75,7 +80,7 @@ class Middle extends React.Component {
   render() {
     return (
       <div>
-        <PlantArea plants={this.state.plants} />;
+        <PlantArea plants={this.state.plants} />
         <button onClick={this.handleAddPlant}>{this.state.count}</button>
       </div>
     );

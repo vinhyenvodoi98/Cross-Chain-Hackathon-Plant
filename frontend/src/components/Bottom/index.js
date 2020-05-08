@@ -1,20 +1,54 @@
 import React from "react";
 import plantImg from "../../images/icn_plantlist.png";
 import bstImg from "../../images/icn_boosters.png";
-
+import { Modal } from "antd";
+import PlantCollection from "../PlantCollection";
 import "./bottom.css";
 
-function Bottom() {
-  return (
-    <div className="bot">
-      <i className="plantLst bgc-w ">
-        <img src={plantImg} alt="icon" />
-      </i>
-      <i className="bstLst bgc-w">
-        <img src={bstImg} alt="icon" />
-      </i>
-    </div>
-  );
+class Bottom extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      openModal: false,
+    };
+  }
+
+  showModal = () => {
+    this.setState({
+      openModal: !this.state.openModal,
+    });
+  };
+
+  handleClickPlant = () => {
+    this.setState({
+      openModal: !this.state.openModal,
+    });
+  };
+
+  handleClickStore = () => {};
+
+  render() {
+    return (
+      <div>
+        <div className="bot">
+          <button className="plantLst bgc-w" onClick={this.showModal}>
+            <img src={plantImg} alt="icon" />
+          </button>
+          <button className="bstLst bgc-w" onClick={this.handleClickStore}>
+            <img src={bstImg} alt="icon" />
+          </button>
+        </div>
+        <Modal
+          title="Plant Collection"
+          visible={this.state.openModal}
+          onOk={this.handleClickPlant}
+          onCancel={this.handleClickPlant}
+        >
+          <PlantCollection />
+        </Modal>
+      </div>
+    );
+  }
 }
 
 export default Bottom;

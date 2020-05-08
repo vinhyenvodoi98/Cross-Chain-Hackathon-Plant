@@ -1,16 +1,18 @@
 .oxy-area {
-  padding: 0px 10px;
   height: 100%;
   border-radius: 10px;
-  width: 100px;
-  margin: auto;
+  line-height: 1.5 !important;
+
   position: relative;
 }
 
 .oxy-num {
-  position: absolute;
-  height: 100%;
-  top: -18px;
+  margin: auto;
+  width: 100px;
+  /* height: 100%; */
+  /* top: -18px; */
+  background-color: whitesmoke;
+  border-radius: 5px;
 }
 
 .oxy-img {
@@ -20,11 +22,4 @@
 
 .number {
   padding: 0px 10px;
-}
-
-.top {
-  background-color: red;
-  display: flex;
-  height: 100%;
-  margin: auto;
 }

@@ -19,16 +19,9 @@
   background-image: url(./images/shelf_side.png), url(./images/shelf_side.png),
     url(./images/backgroud.png) !important;
   /* background: linear-gradient(0deg, #89f7fe 0%, #66a6ff 100%); */
-  background-repeat: no-repeat !important;
-  background-size: contain, contain, auto !important;
+  background-repeat: no-repeat, no-repeat, repeat !important;
+  background-size: contain, contain, contain !important;
   background-position: left, right, center !important;
-}
-
-.side-bg {
-  background-image: url(./images/shelf_side.png) !important;
-  /* background: linear-gradient(0deg, #89f7fe 0%, #66a6ff 100%); */
-  background-repeat: no-repeat !important;
-  background-size: 100% !important;
 }
 
 .opa {
@@ -69,37 +62,10 @@
   width: 10px;
 }
 
-div.oxy {
-  background-color: red;
-  width: 50px;
-  height: 30px;
-  vertical-align: middle;
-  display: flex;
+.center {
+  margin: 0 auto;
 }
 
-div.lv {
-  background-color: rgb(24, 223, 223);
-  width: 50px;
-  height: 30px;
-  top: 0;
-  right: 0;
-  vertical-align: middle;
-}
-
-.bot {
-  display: flex;
-  position: relative;
-  border-radius: 20px;
-  background-color: whitesmoke;
-}
-
-.bot > i {
-  margin-right: 10px;
-  padding-top: 5px;
-  padding-bottom: 5px;
+.align-center {
   text-align: center;
-  /* font-size: 30px; */
-  height: 30px;
-  width: 50px;
-  border-radius: 10px;
 }
