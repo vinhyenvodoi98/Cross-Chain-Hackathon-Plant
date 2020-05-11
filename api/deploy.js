@@ -2,7 +2,7 @@
 // Agoric Dapp api deployment script
 
 import fs from 'fs';
-import installationConstants from '../ui/public/conf/installationConstants.js';
+import installationConstants from '../ui/src/conf/installationConstants.js';
 import { E } from '@agoric/eventual-send';
 import harden from '@agoric/harden';
 import { makeGetInstanceHandle } from '@agoric/zoe/src/clientSupport';
@@ -26,23 +26,21 @@ const TIP_ISSUER_PETNAME = process.env.TIP_ISSUER_PETNAME || 'moola';
  * @param {DeployPowers} powers
  */
 export default async function deployApi(referencesPromise, { bundleSource, pathResolve }) {
-
   // Let's wait for the promise to resolve.
   const references = await referencesPromise;
 
   // Unpack the references.
-  const { 
-
+  const {
     // *** LOCAL REFERENCES ***
 
     // This wallet only exists on this machine, and only you have
     // access to it. The wallet stores purses and handles transactions.
-    wallet, 
+    wallet,
 
     // Scratch is a map only on this machine, and can be used for
     // communication in objects between processes/scripts on this
     // machine.
-    uploads: scratch,  
+    uploads: scratch,
 
     // The spawner persistently runs scripts within ag-solo, off-chain.
     spawner,
@@ -52,7 +50,7 @@ export default async function deployApi(referencesPromise, { bundleSource, pathR
     // Zoe lives on-chain and is shared by everyone who has access to
     // the chain. In this demo, that's just you, but on our testnet,
     // everyone has access to the same Zoe.
-    zoe, 
+    zoe,
 
     // The registry also lives on-chain, and is used to make private
     // objects public to everyone else on-chain. These objects get
@@ -63,20 +61,14 @@ export default async function deployApi(referencesPromise, { bundleSource, pathR
     // The http request handler.
     // TODO: add more explanation
     http,
-
-
-  }  = references;
-
+  } = references;
 
   // To get the backend of our dapp up and running, first we need to
   // grab the installationHandle that our contract deploy script put
   // in the public registry.
-  const { 
-    INSTALLATION_REG_KEY,
-    CONTRACT_NAME,
-  } = installationConstants;
+  const { INSTALLATION_REG_KEY, CONTRACT_NAME } = installationConstants;
   const encouragementContractInstallationHandle = await E(registry).get(INSTALLATION_REG_KEY);
-  
+
   // Second, we can use the installationHandle to create a new
   // instance of our contract code on Zoe. A contract instance is a running
   // program that can take offers through Zoe. Creating a contract
@@ -115,16 +107,19 @@ export default async function deployApi(referencesPromise, { bundleSource, pathR
   const TIP_BRAND_REGKEY = await E.G(E(wallet).getIssuerNames(tipIssuer)).brandRegKey;
 
   const issuerKeywordRecord = harden({ Tip: tipIssuer });
-  const adminInvite = await E(zoe).makeInstance(encouragementContractInstallationHandle, issuerKeywordRecord);
+  const adminInvite = await E(zoe).makeInstance(
+    encouragementContractInstallationHandle,
+    issuerKeywordRecord
+  );
   console.log('- SUCCESS! contract instance is running on Zoe');
-  
+
   // Let's get the Zoe invite issuer to be able to inspect our invite further
   const inviteIssuer = await E(zoe).getInviteIssuer();
 
   // Use the helper function to get an instanceHandle from the invite.
   // An instanceHandle is like an installationHandle in that it is a
   // similar opaque identifier. In this case, though, it identifies a
-  // running contract instance, not code. 
+  // running contract instance, not code.
   const getInstanceHandle = makeGetInstanceHandle(inviteIssuer);
   const instanceHandle = await getInstanceHandle(adminInvite);
 
@@ -135,11 +130,9 @@ export default async function deployApi(referencesPromise, { bundleSource, pathR
   // Zoe in this offer. We are doing this so that Zoe will eventually
   // give us a payout of all of the tips. We can trigger this payout
   // by calling the `cancel` function on the `cancelObj`.
-  const {
-    payout: adminPayoutP,
-    outcome: adminOutcomeP, 
-    cancelObj,
-  } = await E(zoe).offer(adminInvite);
+  const { payout: adminPayoutP, outcome: adminOutcomeP, cancelObj } = await E(zoe).offer(
+    adminInvite
+  );
 
   const outcome = await adminOutcomeP;
   console.log(`-- ${outcome}`);
@@ -147,7 +140,7 @@ export default async function deployApi(referencesPromise, { bundleSource, pathR
   // When the promise for a payout resolves, we want to deposit the
   // payments in our purses. We will put the adminPayoutP and
   // cancelObj in our scratch location so that we can share the
-  // live objects with the shutdown.js script. 
+  // live objects with the shutdown.js script.
   E(scratch).set('adminPayoutP', adminPayoutP);
   E(scratch).set('cancelObj', cancelObj);
 
@@ -159,7 +152,7 @@ export default async function deployApi(referencesPromise, { bundleSource, pathR
 
   console.log(`-- Contract Name: ${CONTRACT_NAME}`);
   console.log(`-- InstanceHandle Register Key: ${INSTANCE_REG_KEY}`);
-  console.log(`-- TIP_BRAND_REGKEY: ${TIP_BRAND_REGKEY}`)
+  console.log(`-- TIP_BRAND_REGKEY: ${TIP_BRAND_REGKEY}`);
 
   // We want the handler to run persistently. (Scripts such as this
   // deploy.js script are ephemeral and all connections to objects
@@ -169,14 +162,13 @@ export default async function deployApi(referencesPromise, { bundleSource, pathR
 
   // Bundle up the handler code
   const { source, moduleFormat } = await bundleSource(pathResolve('./src/handler.js'));
-  
+
   // Install it on the spawner
   const handlerInstall = E(spawner).install(source, moduleFormat);
 
   // Spawn the running code
   const handler = E(handlerInstall).spawn({ publicAPI, http });
   await E(http).registerAPIHandler(handler);
-
 
   // Re-save the constants somewhere where the UI and api can find it.
   const dappConstants = {
@@ -186,7 +178,7 @@ export default async function deployApi(referencesPromise, { bundleSource, pathR
     BRIDGE_URL: 'http://127.0.0.1:8000',
     API_URL: 'http://127.0.0.1:8000',
   };
-  const defaultsFile = pathResolve(`../ui/public/conf/defaults.js`);
+  const defaultsFile = pathResolve(`../ui/src/conf/defaults.js`);
   console.log('writing', defaultsFile);
   const defaultsContents = `\
   // GENERATED FROM ${pathResolve('./deploy.js')}

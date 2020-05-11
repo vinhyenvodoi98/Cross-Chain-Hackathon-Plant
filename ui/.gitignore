@@ -21,6 +21,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.cache
-dist
-public/conf/defaults.js
+package-lock.json
+yarn.lock
+conf/defaults.js

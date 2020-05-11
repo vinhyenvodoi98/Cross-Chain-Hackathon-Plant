@@ -2,4 +2,6 @@
 import defaults from '../conf/defaults.js';
 
 // eslint-disable-next-line no-underscore-dangle
-export default globalThis.__DAPP_CONSTANTS__ || defaults;
+export default process.env.REACT_APP_DAPP_CONSTANTS_JSON
+  ? JSON.parse(process.env.REACT_APP_DAPP_CONSTANTS_JSON)
+  : defaults;

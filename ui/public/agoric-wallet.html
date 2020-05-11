@@ -4,7 +4,7 @@
     <title>Connect to Agoric bridge</title>
   </head>
   <body>
-    <p>Internal to this dApp.  No user-servicable parts.</p>
+    <p>Internal to this dApp. No user-servicable parts.</p>
     <iframe id="ifr"></iframe>
     <script type="text/javascript">
       const localAgoricURL = 'https://local.agoric.com/?append=/wallet';
@@ -44,7 +44,11 @@
               ifr.contentWindow.postMessage(walletQueue.shift(), '*');
             }
           };
-        } else if (!ev.data || !ev.data.type || !ev.data.type.startsWith('wallet')) {
+        } else if (
+          !ev.data ||
+          !ev.data.type ||
+          !ev.data.type.startsWith('wallet')
+        ) {
           // console.log('not a wallet message', ev);
         } else if (ev.origin === bridgeOrigin) {
           if (window.parent !== window) {
