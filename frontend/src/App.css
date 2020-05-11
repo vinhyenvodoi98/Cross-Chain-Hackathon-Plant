@@ -10,11 +10,6 @@
   margin: auto;
 }
 
-.center {
-  display: block;
-  width: 50%;
-}
-
 .bg {
   background-image: url(./images/shelf_side.png), url(./images/shelf_side.png),
     url(./images/backgroud.png) !important;
@@ -26,6 +21,10 @@
 
 .opa {
   opacity: 1;
+}
+
+.opa-0 {
+  opacity: 0;
 }
 
 .bgc-w {
@@ -63,9 +62,21 @@
 }
 
 .center {
-  margin: 0 auto;
+  margin: 0 auto !important;
+}
+
+.mg-15px {
+  margin: 0 15px !important;
 }
 
 .align-center {
   text-align: center;
+}
+
+.flex-display {
+  display: flex;
+}
+
+.bgc-smoke {
+  background-color: whitesmoke;
 }
