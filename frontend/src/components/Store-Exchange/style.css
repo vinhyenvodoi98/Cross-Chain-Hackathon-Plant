@@ -1,0 +1,56 @@
+/* @import "antd/dist/antd.css"; */
+
+.gutter-box {
+  padding: 8px 0;
+  background: #00a0e9;
+}
+[data-theme="dark"] .gutter-box {
+  background: #028ac8;
+}
+
+.swapItem {
+  height: 130px;
+  position: relative;
+}
+
+.overflow {
+  overflow: auto;
+}
+
+.bg-swapItem {
+  background-image: url(../../images/backgroud.png) !important;
+  /* background: linear-gradient(0deg, #89f7fe 0%, #66a6ff 100%); */
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  background-position: center !important;
+}
+
+.opa-03 {
+  opacity: 0.3;
+}
+
+.bgc-swapItem {
+  background-color: turquoise;
+}
+
+.mg-side-10px {
+  margin: 0 10px !important;
+}
+
+.swapItemImg {
+  max-height: 95% !important;
+  width: 90% !important;
+  margin: auto !important;
+}
+
+.h-10px {
+  height: 10px;
+}
+
+.p-left-5px {
+  padding-left: 10px;
+}
+
+.unset-width {
+  width: unset !important;
+}

@@ -1,0 +1,53 @@
+.collection {
+  background-color: whitesmoke;
+  overflow: auto;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+.bgc-blue {
+  background-color: cornflowerblue;
+}
+
+.green {
+  color: green;
+}
+
+.bgc-green {
+  background-color: green;
+}
+
+.blue {
+  color: blue;
+}
+
+.plantAva {
+  width: 70px;
+  height: 70px;
+  position: relative;
+  margin-right: 10px;
+}
+
+.plantImg {
+  height: 70%;
+  position: absolute;
+  bottom: 0px;
+  margin: 0 auto;
+}
+
+.item {
+  margin-bottom: 10px;
+  height: 70px;
+  position: relative;
+}
+
+.radius {
+  border-radius: 5px;
+}
+
+.item > button {
+  position: absolute;
+  right: 0px;
+  width: 60px;
+  margin: 15px 15px;
+}
