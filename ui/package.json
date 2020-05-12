@@ -8,11 +8,8 @@
     "@testing-library/user-event": "^7.1.2",
     "antd": "^4.2.0",
     "react": "^16.13.1",
-    "react-bottom-sheet": "^1.1.1",
     "react-dom": "^16.13.1",
-    "react-motion": "^0.5.2",
     "react-redux": "^7.2.0",
-    "react-responsive-modal": "^5.0.2",
     "react-scripts": "3.4.1",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0"

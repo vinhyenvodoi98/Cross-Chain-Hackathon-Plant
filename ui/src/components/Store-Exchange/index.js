@@ -28,11 +28,10 @@ function Item(props) {
             <strong className="number">100k</strong>
           </div>
         </div>
-        <img
-          src={testPlant}
-          className="swapItemImg center opa-03 bgc-swapItem "
-          alt=""
-        />
+        <div className="divSwapImg center">
+          <img src={testPlant} className=" swapItemImg " alt="" />
+          <h2 className="priceSwapItem"> +3310 </h2>
+        </div>
       </div>
     </Col>
   );
