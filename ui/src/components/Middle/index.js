@@ -62,18 +62,15 @@ class Middle extends React.Component {
     super(props);
     this.state = {
       plants: Array(12).fill(null),
-      count: 0,
     };
     this.handleAddPlant = this.handleAddPlant.bind(this);
   }
 
-  handleAddPlant() {
-    const count = this.state.count;
+  handleAddPlant(id) {
     var plants = this.state.plants;
-    plants[count] = 1;
+    plants[id - 1] = 1;
     this.setState({
       plants: plants,
-      count: count + 1,
     });
   }
 
@@ -81,7 +78,9 @@ class Middle extends React.Component {
     return (
       <div>
         <PlantArea plants={this.state.plants} />
-        <button onClick={this.handleAddPlant}>{this.state.count}</button>
+        <button onClick={(id) => this.handleAddPlant(id)}>
+          {this.state.count}
+        </button>
       </div>
     );
   }
