@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import plantImg from "../../images/icn_plantlist.png";
-import bstImg from "../../images/icn_boosters.png";
+import React,{useState} from "react";
+import plantImg from "images/icn_plantlist.png";
+import bstImg from "images/icn_boosters.png";
 import { Modal } from "antd";
 import PlantCollection from "../PlantCollection";
 import Store from "../Store-Exchange";

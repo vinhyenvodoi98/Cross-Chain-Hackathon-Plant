@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import shelfImg from "../../images/shelf_side_rotate.png";
-import testPlant from "../../images/bellpeppers1_background.png";
-import testPot from "../../images/pot_empty.png";
+import shelfImg from "images/shelf_side_rotate.png";
+import testPlant from "images/bellpeppers1_background.png";
+import testPot from "images/pot_empty.png";
 import "./Middle.css";
-import { State } from "../../constant";
+import { State } from "constant";
 import { useDispatch, useSelector } from "react-redux";
-import * as actions from "../../store/actions";
+import * as actions from "store/actions";
 
 function Plant(props) {
   if (props.plant.state === State.PLANTED) {

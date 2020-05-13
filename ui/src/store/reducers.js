@@ -1,7 +1,6 @@
 import * as connect from "./actions";
 
-import dappConstants from "../conf/installationConstants";
-// import {} from
+import dappConstants from 'conf/dappConstants';
 
 const instanceId = dappConstants.INSTANCE_REG_KEY;
 

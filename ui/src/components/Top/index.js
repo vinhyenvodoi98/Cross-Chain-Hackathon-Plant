@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import oxyImg from '../../images/oxygen_bubble_big.png';
-import * as actions from '../../store/actions';
+import oxyImg from 'images/oxygen_bubble_big.png';
+import * as actions from 'store/actions';
 
 import './top.css';
 

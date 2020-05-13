@@ -1,11 +1,11 @@
 import { Row, Col } from "antd";
 import React from "react";
 import "./style.css";
-import testPlant from "../../images/bellpeppers1_background.png";
-import oxyImg from "../../images/oxygen_bubble_big.png";
-import { State } from "../../constant";
+import { State } from "constant";
 import { useDispatch, useSelector } from "react-redux";
-import * as actions from "../../store/actions";
+import * as actions from "store/actions";
+import testPlant from "images/bellpeppers1_background.png";
+import oxyImg from "images/oxygen_bubble_big.png";
 
 // const style = { background: "#0092ff", padding: "8px 0" };
 
