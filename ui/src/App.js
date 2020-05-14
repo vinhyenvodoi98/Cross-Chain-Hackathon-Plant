@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as actions from "./store/actions";
 
@@ -14,6 +14,7 @@ import Bottom from "./components/Bottom";
 import Middle from "./components/Middle";
 import dappConstants from "./conf/installationConstants";
 
+import { plants_init, State } from "./constant";
 import "./App.css";
 
 const { INSTANCE_REG_KEY } = dappConstants;
@@ -102,8 +103,18 @@ function App() {
     // apiMessageHandler
   ]);
 
-  const onAddPlant = (id) => {
-    return id;
+  const [plants, setPlants] = useState(plants_init);
+
+  const handleAddPlant = (id) => {
+    var temp = plants;
+    temp[id].state = State.PLANTED;
+    setPlants(temp);
+  };
+
+  const handleBuyPlant = (id) => {
+    var temp = plants;
+    temp[id].state = State.INSTOCK;
+    setPlants(temp);
   };
 
   return (
@@ -113,10 +124,14 @@ function App() {
           <Top />
         </Header>
         <Content className="opa p-10px">
-          <Middle />
+          <Middle plants={plants} />
         </Content>
         <Footer className="h-50px p-10px m-10px r-top-10px">
-          <Bottom />
+          <Bottom
+            plants={plants}
+            onAddPlant={(id) => handleAddPlant(id)}
+            onBuyPlant={(id) => handleBuyPlant(id)}
+          />
         </Footer>
       </Layout>
     </div>

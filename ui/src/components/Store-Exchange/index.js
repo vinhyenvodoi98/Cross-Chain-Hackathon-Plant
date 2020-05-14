@@ -3,6 +3,7 @@ import React from "react";
 import "./style.css";
 import testPlant from "../../images/bellpeppers1_background.png";
 import oxyImg from "../../images/oxygen_bubble_big.png";
+import { State } from "../../constant";
 
 // const style = { background: "#0092ff", padding: "8px 0" };
 
@@ -41,7 +42,9 @@ function Store(props) {
   return (
     <Row gutter={[20, 20]} className="overflow bgc-smoke">
       {items.map((item) => {
-        return <Item />;
+        if (item.state === State.INSTORE) {
+          return <Item />;
+        }
       })}
     </Row>
   );
