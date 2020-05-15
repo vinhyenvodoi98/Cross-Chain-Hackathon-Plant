@@ -1,4 +1,4 @@
-import * as connect from "./actions";
+import * as connect from './actions';
 
 import dappConstants from 'conf/dappConstants';
 
@@ -10,7 +10,7 @@ const initialState = {
   account: null,
   purses: [],
   instanceId,
-  plants: [],
+  plants: []
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -18,31 +18,31 @@ const rootReducer = (state = initialState, action) => {
     case connect.SERVER_CONNECTED:
       return {
         ...state,
-        connected: action.connected,
+        connected: action.connected
       };
     case connect.ACTIVATE_CONNECTION:
       return {
         ...state,
-        active: action.active,
+        active: action.active
       };
     case connect.UPDATE_PURSES:
       return {
         ...state,
-        purses: action.purses,
+        purses: action.purses
       };
     case connect.GET_ALL_PLANTS:
       return {
         ...state,
-        plants: action.plants,
+        plants: action.plants
       };
     case connect.CHANGE_STATE_PLANT:
       return {
         ...state,
-        plants: action.plants,
+        plants: action.plants
       };
     case connect.RESET_ALL:
       return {
-        ...state,
+        ...state
       };
     default:
       return state;

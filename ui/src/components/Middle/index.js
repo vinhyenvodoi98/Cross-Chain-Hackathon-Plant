@@ -1,21 +1,21 @@
-import React, { useEffect } from "react";
-import shelfImg from "images/shelf_side_rotate.png";
-import testPlant from "images/bellpeppers1_background.png";
-import testPot from "images/pot_empty.png";
-import "./Middle.css";
-import { State } from "constant";
-import { useDispatch, useSelector } from "react-redux";
-import * as actions from "store/actions";
+import React, { useEffect } from 'react';
+import shelfImg from 'images/shelf_side_rotate.png';
+import testPlant from 'images/bellpeppers1_background.png';
+import testPot from 'images/pot_empty.png';
+import './Middle.css';
+import { State } from 'constant';
+import { useDispatch, useSelector } from 'react-redux';
+import * as actions from 'store/actions';
 
 function Plant(props) {
   if (props.plant.state === State.PLANTED) {
     return (
-      <div className="plant">
-        <div className="stem">
-          <img src={testPlant} alt="" className="plantImg" />
+      <div className='plant'>
+        <div className='stem'>
+          <img src={testPlant} alt='' className='plantImg' />
         </div>
-        <div className="pot">
-          <img src={testPot} alt="" className="potImg" />
+        <div className='pot'>
+          <img src={testPot} alt='' className='potImg' />
         </div>
       </div>
     );
@@ -32,27 +32,27 @@ function Middle() {
   }, [dispatch]);
 
   return (
-    <div className="plant-area">
-      <div className="row" />
-      <img className="shelf" src={shelfImg} alt="" />
-      <div className="row">
+    <div className='plant-area'>
+      <div className='row' />
+      <img className='shelf' src={shelfImg} alt='' />
+      <div className='row'>
         {state.plants.slice(0, 4).map((item) => {
           return <Plant plant={item} />;
         })}
       </div>
-      <img className="shelf" src={shelfImg} alt="" />
-      <div className="row">
+      <img className='shelf' src={shelfImg} alt='' />
+      <div className='row'>
         {state.plants.slice(4, 8).map((item) => {
           return <Plant plant={item} />;
         })}
       </div>
-      <img className="shelf" src={shelfImg} alt="" />
-      <div className="row">
+      <img className='shelf' src={shelfImg} alt='' />
+      <div className='row'>
         {state.plants.slice(8, 12).map((item) => {
           return <Plant plant={item} />;
         })}
       </div>
-      <img className="shelf" src={shelfImg} alt="" />
+      <img className='shelf' src={shelfImg} alt='' />
     </div>
   );
 }

@@ -4,23 +4,23 @@ export const SERVER_CONNECTED = 'SERVER_CONNECTED';
 export const serverConnected = (connected) => async (dispatch) => {
   dispatch({
     type: SERVER_CONNECTED,
-    connected,
+    connected
   });
 };
 
-export const ACTIVATE_CONNECTION = "ACTIVATE_CONNECTION";
+export const ACTIVATE_CONNECTION = 'ACTIVATE_CONNECTION';
 export const activateConnection = (active) => async (dispatch) => {
   dispatch({
     type: ACTIVATE_CONNECTION,
-    active,
+    active
   });
 };
 
-export const UPDATE_PURSES = "UPDATE_PURSES";
+export const UPDATE_PURSES = 'UPDATE_PURSES';
 export const updatePurses = (data) => async (dispatch) => {
   dispatch({
     type: UPDATE_PURSES,
-    purses: data,
+    purses: data
   });
 };
 
@@ -71,8 +71,8 @@ export const createOffer = (number, pursePetname) => async (dispatch, getState) 
     //   E(target)[hookMethod](...hookArgs)
     hooks: {
       publicAPI: {
-        getInvite: ['makeInvite'], // E(publicAPI).makeInvite()
-      },
+        getInvite: ['makeInvite'] // E(publicAPI).makeInvite()
+      }
     },
 
     proposalTemplate: {
@@ -80,15 +80,15 @@ export const createOffer = (number, pursePetname) => async (dispatch, getState) 
         Tip: {
           // The pursePetname identifies which purse we want to use
           pursePetname: pursePetname,
-          extent: Number(number),
-        },
+          extent: Number(number)
+        }
       },
-      exit: { onDemand: null },
-    },
+      exit: { onDemand: null }
+    }
   };
   console.log('wallet > ', offer);
   doFetch({
     type: 'walletAddOffer',
-    data: offer,
+    data: offer
   });
 };
