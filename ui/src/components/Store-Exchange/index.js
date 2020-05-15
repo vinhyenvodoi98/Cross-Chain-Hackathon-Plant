@@ -4,6 +4,8 @@ import "./style.css";
 import testPlant from "../../images/bellpeppers1_background.png";
 import oxyImg from "../../images/oxygen_bubble_big.png";
 import { State } from "../../constant";
+import { useDispatch, useSelector } from "react-redux";
+import * as actions from "../../store/actions";
 
 // const style = { background: "#0092ff", padding: "8px 0" };
 
@@ -19,7 +21,7 @@ for (var i = 0; i < 30; i++) {
   items.push(plant1);
 }
 
-function Item(props) {
+function Item() {
   return (
     <Col className="gutter-row r-bot-10px r-top-10px " span={6}>
       <div className="bg-swapItem swapItem">
@@ -38,10 +40,13 @@ function Item(props) {
   );
 }
 
-function Store(props) {
+function Store() {
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state);
+
   return (
     <Row gutter={[20, 20]} className="overflow bgc-smoke">
-      {items.map((item) => {
+      {state.plants.map((item) => {
         if (item.state === State.INSTORE) {
           return <Item />;
         }

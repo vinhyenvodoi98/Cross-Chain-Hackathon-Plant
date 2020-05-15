@@ -70,14 +70,14 @@ const plants_init = [
     name: "Bonsai 3",
     level: 2,
     simoola: 30,
-    state: State.INSTOCK,
+    state: State.PLANTED,
   },
   {
     id: 11,
     name: "Bonsai 3",
     level: 2,
     simoola: 30,
-    state: State.INSTORE,
+    state: State.PLANTED,
   },
 ];
 

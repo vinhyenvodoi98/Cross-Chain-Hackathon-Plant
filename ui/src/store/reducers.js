@@ -1,6 +1,7 @@
-import * as connect from './actions';
+import * as connect from "./actions";
 
-import dappConstants from '../conf/installationConstants';
+import dappConstants from "../conf/installationConstants";
+// import {} from
 
 const instanceId = dappConstants.INSTANCE_REG_KEY;
 
@@ -10,6 +11,7 @@ const initialState = {
   account: null,
   purses: [],
   instanceId,
+  plants: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -28,6 +30,20 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         purses: action.purses,
+      };
+    case connect.GET_ALL_PLANTS:
+      return {
+        ...state,
+        plants: action.plants,
+      };
+    case connect.CHANGE_STATE_PLANT:
+      return {
+        ...state,
+        plants: action.plants,
+      };
+    case connect.RESET_ALL:
+      return {
+        ...state,
       };
     default:
       return state;
