@@ -5,7 +5,7 @@ export const SERVER_CONNECTED = 'SERVER_CONNECTED';
 export const serverConnected = (connected) => async (dispatch) => {
   dispatch({
     type: SERVER_CONNECTED,
-    connected,
+    connected
   });
 };
 
@@ -13,7 +13,7 @@ export const ACTIVATE_CONNECTION = 'ACTIVATE_CONNECTION';
 export const activateConnection = (active) => async (dispatch) => {
   dispatch({
     type: ACTIVATE_CONNECTION,
-    active,
+    active
   });
 };
 
@@ -21,7 +21,15 @@ export const UPDATE_PURSES = 'UPDATE_PURSES';
 export const updatePurses = (data) => async (dispatch) => {
   dispatch({
     type: UPDATE_PURSES,
-    purses: data,
+    purses: data
+  });
+};
+
+export const UPDATE_PLANTS = 'UPDATE_PLANTS';
+export const updatePlants = (plants) => (dispatch) => {
+  dispatch({
+    type: UPDATE_PLANTS,
+    plants
   });
 };
 
@@ -29,7 +37,7 @@ export const GET_ALL_PLANTS = 'GET_ALL_PLANTS';
 export const getAllPlants = () => (dispatch) => {
   dispatch({
     type: GET_ALL_PLANTS,
-    plants: plants_init,
+    plants: plants_init
   });
 };
 
@@ -41,14 +49,14 @@ export const changeStatePlant = (id, statePlant) => (dispatch, getState) => {
   plant.state = statePlant;
   dispatch({
     type: CHANGE_STATE_PLANT,
-    plants,
+    plants
   });
 };
 
 export const RESET_ALL = 'RESET_ALL';
 export const resetAll = () => (dispatch) => {
   dispatch({
-    type: RESET_ALL,
+    type: RESET_ALL
   });
 };
 
@@ -72,6 +80,7 @@ export const apiMessageHandler = (message) => async (dispatch) => {
   if (!message) return;
   const { type, data } = message;
   if (type === 'bonsai/getAvalablePlantResponse') {
+    dispatch(updatePlants(data));
     console.log('data', data);
   }
   // if (type === 'walletUpdatePurses') {
@@ -102,8 +111,8 @@ export const createOffer = (number, pursePetname) => async (dispatch, getState) 
     //   E(target)[hookMethod](...hookArgs)
     hooks: {
       publicAPI: {
-        getInvite: ['makeInvite'], // E(publicAPI).makeInvite()
-      },
+        getInvite: ['makeInvite'] // E(publicAPI).makeInvite()
+      }
     },
 
     proposalTemplate: {
@@ -111,15 +120,15 @@ export const createOffer = (number, pursePetname) => async (dispatch, getState) 
         Tip: {
           // The pursePetname identifies which purse we want to use
           pursePetname: pursePetname,
-          extent: Number(number),
-        },
+          extent: Number(number)
+        }
       },
-      exit: { onDemand: null },
-    },
+      exit: { onDemand: null }
+    }
   };
   console.log('wallet > ', offer);
   doFetch({
     type: 'walletAddOffer',
-    data: offer,
+    data: offer
   });
 };

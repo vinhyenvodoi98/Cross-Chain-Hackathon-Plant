@@ -4,13 +4,8 @@
   padding: 8px 0;
   background: #00a0e9;
 }
-[data-theme="dark"] .gutter-box {
+[data-theme='dark'] .gutter-box {
   background: #028ac8;
-}
-
-.swapItem {
-  height: 150px;
-  position: relative;
 }
 
 .overflow {
@@ -25,10 +20,6 @@
   background-position: center !important;
 }
 
-.opa-03 {
-  opacity: 0.3;
-}
-
 .bgc-swapItem {
   background-color: turquoise;
 }
@@ -37,35 +28,10 @@
   margin: 0 10px !important;
 }
 
-.h-10px {
-  height: 10px;
+.h-160px {
+  height: 160px;
 }
 
-.p-left-5px {
-  padding-left: 10px;
-}
-
-.unset-width {
-  width: unset !important;
-}
-
-.swapItemImg {
+.w-100 {
   width: 100%;
-  /* max-height: 90%; */
-  bottom: 0px;
-  height: 90%;
-  position: absolute;
-}
-
-.divSwapImg {
-  height: 130px;
-  max-width: 90%;
-  position: relative;
-}
-
-.priceSwapItem {
-  text-align: center;
-  vertical-align: middle;
-  margin: auto 0;
-  color: white;
 }
