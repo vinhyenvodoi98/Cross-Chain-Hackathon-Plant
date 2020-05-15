@@ -47,18 +47,12 @@ function Application() {
         {
           onConnect() {
             console.log('connected to API');
-            doFetch({
-              type: 'encouragement/getEncouragement',
-            });
-            // doFetch(
-            //   {
-            //     type: 'encouragement/subscribeNotifications',
-            //     data: {
-            //       instanceId: INSTANCE_REG_KEY,
-            //     },
-            //   },
-            //   '/api',
-            // ).then(({ data }) => console.log('subscribed response', data));
+            doFetch(
+              {
+                type: 'bonsai/getAvalablePlant',
+              },
+              '/api'
+            );
           },
           onDisconnect() {
             console.log('disconnected from API');

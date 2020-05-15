@@ -1,95 +1,131 @@
+/* eslint-disable no-use-before-define */
 // @ts-check
+
 import harden from '@agoric/harden';
-import { produceNotifier } from '@agoric/notifier';
-import { makeZoeHelpers } from '@agoric/zoe/src/contractSupport/zoeHelpers';
+import produceIssuer from '@agoric/ertp';
+import {
+  makeZoeHelpers,
+  defaultAcceptanceMsg,
+} from '@agoric/zoe/src/contractSupport/zoeHelpers';
 
-/**
- * This contract does a few interesting things.
- *
- * @type {import('@agoric/zoe').MakeContract}
- */
 export const makeContract = harden(zcf => {
-  let count = 0;
-  const messages = {
-    basic: `You're doing great!`,
-    premium: `Wow, just wow. I have never seen such talent!`,
-  };
-  const { notifier, updater } = produceNotifier();
-  let adminOfferHandle;
-  const tipAmountMath = zcf.getAmountMaths(harden(['Tip'])).Tip;
+  // Create the internal Plant mint
+  const { issuer, mint, amountMath: plantAmountMath } = produceIssuer(
+    'Bonsai',
+    'set',
+  );
 
-  const { inviteAnOffer, rejectOffer } = makeZoeHelpers(zcf);
+  const {
+    terms: { name, price, count, expectedAmountPerPlant },
+    issuerKeywordRecord: { Money: moneyIssuer },
+  } = zcf.getInstanceRecord();
 
-  const updateNotification = () => {
-    updater.updateState({ messages, count });
-  };
-  updateNotification();
+  const { amountMath: moneyAmountMath } = zcf.getIssuerRecord(moneyIssuer);
 
-  const adminHook = offerHandle => {
-    adminOfferHandle = offerHandle;
-    return `admin invite redeemed`;
-  };
+  const { rejectOffer, checkHook, escrowAndAllocateTo } = makeZoeHelpers(zcf);
 
-  const encouragementHook = offerHandle => {
-    // if the adminOffer is no longer active (i.e. the admin cancelled
-    // their offer and retrieved their tips), we just don't give any
-    // encouragement.
-    if (!zcf.isOfferActive(adminOfferHandle)) {
-      rejectOffer(offerHandle, `We are no longer giving encouragement`);
-    }
+  let auditoriumOfferHandle;
 
-    const userTipAllocation = zcf.getCurrentAllocation(offerHandle).Tip;
-    let encouragement = messages.basic;
-    // if the user gives a tip, we provide a premium encouragement message
-    if (
-      userTipAllocation &&
-      tipAmountMath.isGTE(userTipAllocation, tipAmountMath.make(1))
-    ) {
-      encouragement = messages.premium;
-      // reallocate the tip to the adminOffer
-      const adminTipAllocation = zcf.getCurrentAllocation(adminOfferHandle).Tip;
-      const newAdminAllocation = {
-        Tip: tipAmountMath.add(adminTipAllocation, userTipAllocation),
-      };
-      const newUserAllocation = {
-        Tip: tipAmountMath.getEmpty(),
-      };
-
-      zcf.reallocate(
-        harden([adminOfferHandle, offerHandle]),
-        harden([newAdminAllocation, newUserAllocation]),
-        harden(['Tip']),
-      );
-    }
-    zcf.complete(harden([offerHandle]));
-    count += 1;
-    updateNotification();
-    return encouragement;
-  };
-
-  const makeInvite = () =>
-    inviteAnOffer(
-      harden({
-        offerHook: encouragementHook,
-        customProperties: { inviteDesc: 'encouragement' },
-      }),
+  return zcf.addNewIssuer(issuer, 'Plant').then(() => {
+    const plantAmount = plantAmountMath.make(
+      harden(
+        Array(count)
+          .fill()
+          .map((_, i) => {
+            const plantNumber = i + 1;
+            return harden({
+              name,
+              plantId: plantNumber,
+              price,
+            });
+          }),
+      ),
     );
+    const plantPayment = mint.mintPayment(plantAmount);
 
-  return harden({
-    invite: inviteAnOffer(
-      harden({
-        offerHook: adminHook,
-        customProperties: { inviteDesc: 'admin' },
-      }),
-    ),
-    publicAPI: {
-      getNotifier: () => notifier,
-      makeInvite,
-      getFreeEncouragement: () => {
-        count += 1;
-        updateNotification();
-        return messages.basic;
+    const auditoriumOfferHook = offerHandle => {
+      auditoriumOfferHandle = offerHandle;
+      return escrowAndAllocateTo({
+        amount: plantAmount,
+        payment: plantPayment,
+        keyword: 'Plant',
+        recipientHandle: auditoriumOfferHandle,
+      }).then(() => defaultAcceptanceMsg);
+    };
+
+    const buyPlantOfferHook = buyerOfferHandle => {
+      const buyerOffer = zcf.getOffer(buyerOfferHandle);
+
+      const currentAuditoriumAllocation = zcf.getCurrentAllocation(
+        auditoriumOfferHandle,
+      );
+      const currentBuyerAllocation = zcf.getCurrentAllocation(buyerOfferHandle);
+
+      const wantedPlantsCount = buyerOffer.proposal.want.Plant.extent.length;
+      const wantedMoney = expectedAmountPerPlant.extent * wantedPlantsCount;
+
+      try {
+        if (
+          !moneyAmountMath.isGTE(
+            currentBuyerAllocation.Money,
+            moneyAmountMath.make(wantedMoney),
+          )
+        ) {
+          throw new Error(
+            'The offer associated with this seat does not contain enough moolas',
+          );
+        }
+
+        const wantedAuditoriumAllocation = {
+          Money: moneyAmountMath.add(
+            currentAuditoriumAllocation.Money,
+            currentBuyerAllocation.Money,
+          ),
+          Plant: plantAmountMath.subtract(
+            currentAuditoriumAllocation.Plant,
+            buyerOffer.proposal.want.Plant,
+          ),
+        };
+
+        const wantedBuyerAllocation = {
+          Money: moneyAmountMath.getEmpty(),
+          Plant: plantAmountMath.add(
+            currentBuyerAllocation.Plant,
+            buyerOffer.proposal.want.Plant,
+          ),
+        };
+
+        zcf.reallocate(
+          [auditoriumOfferHandle, buyerOfferHandle],
+          [wantedAuditoriumAllocation, wantedBuyerAllocation],
+        );
+        zcf.complete([buyerOfferHandle]);
+      } catch (err) {
+        // amounts don't match or reallocate certainly failed
+        rejectOffer(buyerOfferHandle);
+      }
+    };
+
+    const buyPlantExpected = harden({
+      want: { Plant: null },
+      give: { Money: null },
+    });
+
+    return harden({
+      invite: zcf.makeInvitation(auditoriumOfferHook, 'auditorium'),
+      publicAPI: {
+        makeBuyerInvite: () =>
+          zcf.makeInvitation(
+            checkHook(buyPlantOfferHook, buyPlantExpected),
+            'buy plant',
+          ),
+        getPlantIssuer: () => issuer,
+        getAvailablePlants() {
+          // Because of a technical limitation in @agoric/marshal, an array of extents
+          // is better than a Map https://github.com/Agoric/agoric-sdk/issues/838
+          return zcf.getCurrentAllocation(auditoriumOfferHandle).Plant.extent;
+        },
       },
-    },
+    });
   });
 });
