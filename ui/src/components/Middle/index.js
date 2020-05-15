@@ -36,20 +36,20 @@ function Middle() {
       <div className='row' />
       <img className='shelf' src={shelfImg} alt='' />
       <div className='row'>
-        {state.plants.slice(0, 4).map((item) => {
-          return <Plant plant={item} />;
+        {state.plants.slice(0, 4).map((item, index) => {
+          return <Plant key={index} plant={item} />;
         })}
       </div>
       <img className='shelf' src={shelfImg} alt='' />
       <div className='row'>
-        {state.plants.slice(4, 8).map((item) => {
-          return <Plant plant={item} />;
+        {state.plants.slice(4, 8).map((item, index) => {
+          return <Plant key={index} plant={item} />;
         })}
       </div>
       <img className='shelf' src={shelfImg} alt='' />
       <div className='row'>
-        {state.plants.slice(8, 12).map((item) => {
-          return <Plant plant={item} />;
+        {state.plants.slice(8, 12).map((item, index) => {
+          return <Plant key={index} plant={item} />;
         })}
       </div>
       <img className='shelf' src={shelfImg} alt='' />

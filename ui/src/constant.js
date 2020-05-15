@@ -1,7 +1,7 @@
 const State = {
   PLANTED: 1,
   INSTOCK: 2,
-  INSTORE: 3,
+  INSTORE: 3
 };
 
 Object.freeze(State);
@@ -12,14 +12,14 @@ const plants_init = [
     name: 'Bonsai 3',
     level: 2,
     simoola: 30,
-    state: State.INSTORE,
+    state: State.INSTORE
   },
   {
     id: 1,
     name: 'Bonsai 1',
     level: 2,
     simoola: 56,
-    state: State.PLANTED,
+    state: State.PLANTED
   },
   { id: 2, name: 'Bonsai 2', level: 3, simoola: 40, state: State.INSTOCK },
   {
@@ -27,42 +27,42 @@ const plants_init = [
     name: 'Bonsai 3',
     level: 2,
     simoola: 30,
-    state: State.INSTOCK,
+    state: State.INSTOCK
   },
   {
     id: 4,
     name: 'Bonsai 3',
     level: 2,
     simoola: 30,
-    state: State.INSTORE,
+    state: State.INSTORE
   },
   {
     id: 5,
     name: 'Bonsai 3',
     level: 2,
     simoola: 30,
-    state: State.INSTORE,
+    state: State.INSTORE
   },
   {
     id: 6,
     name: 'Bonsai 3',
     level: 2,
     simoola: 30,
-    state: State.INSTOCK,
+    state: State.INSTORE
   },
   {
     id: 7,
     name: 'Bonsai 3',
     level: 2,
     simoola: 30,
-    state: State.INSTOCK,
+    state: State.INSTOCK
   },
   {
     id: 8,
     name: 'Bonsai 1',
     level: 2,
     simoola: 56,
-    state: State.PLANTED,
+    state: State.PLANTED
   },
   { id: 9, name: 'Bonsai 2', level: 3, simoola: 40, state: State.INSTOCK },
   {
@@ -70,15 +70,15 @@ const plants_init = [
     name: 'Bonsai 3',
     level: 2,
     simoola: 30,
-    state: State.PLANTED,
+    state: State.PLANTED
   },
   {
     id: 11,
     name: 'Bonsai 3',
     level: 2,
     simoola: 30,
-    state: State.PLANTED,
-  },
+    state: State.INSTORE
+  }
 ];
 
 export { plants_init, State };

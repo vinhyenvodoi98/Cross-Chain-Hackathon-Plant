@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import plantImg from 'images/icn_plantlist.png';
 import bstImg from 'images/icn_boosters.png';
-import { Modal } from 'antd';
+import { Modal, Button } from 'antd';
 import PlantCollection from '../PlantCollection';
 import Store from '../Store-Exchange';
 import './bottom.css';
@@ -13,12 +13,12 @@ function Bottom(props) {
   return (
     <div>
       <div className='bot'>
-        <button className='plantLst bgc-w' onClick={() => setOpenModalPlant(!openModalPlant)}>
+        <Button className='plantLst bgc-w' onClick={() => setOpenModalPlant(!openModalPlant)}>
           <img src={plantImg} alt='icon' />
-        </button>
-        <button className='bstLst bgc-w' onClick={() => setOpenModalStore(!openModalStore)}>
+        </Button>
+        <Button className='bstLst bgc-w' onClick={() => setOpenModalStore(!openModalStore)}>
           <img src={bstImg} alt='icon' />
-        </button>
+        </Button>
       </div>
       <Modal
         title='Plant Collection'
@@ -27,7 +27,11 @@ function Bottom(props) {
         okButtonProps={{ style: { display: 'none' } }}
         onCancel={() => setOpenModalPlant(!openModalPlant)}
       >
-        <PlantCollection plants={props.plants} onAddPlant={props.onAddPlant} />
+        <PlantCollection
+          plants={props.plants}
+          onAddPlant={props.onAddPlant}
+          onClose={() => setOpenModalPlant(!openModalPlant)}
+        />
       </Modal>
 
       <Modal
@@ -37,7 +41,11 @@ function Bottom(props) {
         okButtonProps={{ style: { display: 'none' } }}
         onCancel={() => setOpenModalStore(!openModalStore)}
       >
-        <Store plants={props.plants} onBuyPlant={props.onBuyPlant} />
+        <Store
+          plants={props.plants}
+          onBuyPlant={props.onBuyPlant}
+          onClose={() => setOpenModalStore(!openModalStore)}
+        />
       </Modal>
     </div>
   );
