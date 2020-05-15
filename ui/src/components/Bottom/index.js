@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import plantImg from "../../images/icn_plantlist.png";
 import bstImg from "../../images/icn_boosters.png";
 import { Modal } from "antd";
@@ -6,70 +6,47 @@ import PlantCollection from "../PlantCollection";
 import Store from "../Store-Exchange";
 import "./bottom.css";
 
-class Bottom extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      openModalPlant: false,
-      openModalStore: false,
-    };
-  }
+function Bottom(props) {
+  const [openModalPlant, setOpenModalPlant] = useState(false);
+  const [openModalStore, setOpenModalStore] = useState(false);
 
-  showModalPlant = () => {
-    this.setState({
-      openModalPlant: !this.state.openModalPlant,
-    });
-  };
-
-  showModalStore = () => {
-    this.setState({
-      openModalStore: !this.state.openModalStore,
-    });
-  };
-
-  handleClickPlant = () => {
-    this.setState({
-      openModalPlant: !this.state.openModalPlant,
-    });
-  };
-
-  handleClickStore = () => {
-    this.setState({
-      openModalStore: !this.state.openModalStore,
-    });
-  };
-
-  render() {
-    return (
-      <div>
-        <div className="bot">
-          <button className="plantLst bgc-w" onClick={this.showModalPlant}>
-            <img src={plantImg} alt="icon" />
-          </button>
-          <button className="bstLst bgc-w" onClick={this.showModalStore}>
-            <img src={bstImg} alt="icon" />
-          </button>
-        </div>
-        <Modal
-          title="Plant Collection"
-          visible={this.state.openModalPlant}
-          onOk={this.handleClickPlant}
-          onCancel={this.handleClickPlant}
+  return (
+    <div>
+      <div className="bot">
+        <button
+          className="plantLst bgc-w"
+          onClick={() => setOpenModalPlant(!openModalPlant)}
         >
-          <PlantCollection />
-        </Modal>
-
-        <Modal
-          title="Swap Plant"
-          visible={this.state.openModalStore}
-          onOk={this.handleClickStore}
-          onCancel={this.handleClickStore}
+          <img src={plantImg} alt="icon" />
+        </button>
+        <button
+          className="bstLst bgc-w"
+          onClick={() => setOpenModalStore(!openModalStore)}
         >
-          <Store />
-        </Modal>
+          <img src={bstImg} alt="icon" />
+        </button>
       </div>
-    );
-  }
+      <Modal
+        title="Plant Collection"
+        visible={openModalPlant}
+        cancelButtonProps={{ style: { display: "none" } }}
+        okButtonProps={{ style: { display: "none" } }}
+        onCancel={() => setOpenModalPlant(!openModalPlant)}
+      >
+        <PlantCollection plants={props.plants} onAddPlant={props.onAddPlant} />
+      </Modal>
+
+      <Modal
+        title="Swap Plant"
+        visible={openModalStore}
+        cancelButtonProps={{ style: { display: "none" } }}
+        okButtonProps={{ style: { display: "none" } }}
+        onCancel={() => setOpenModalStore(!openModalStore)}
+      >
+        <Store plants={props.plants} onBuyPlant={props.onBuyPlant} />
+      </Modal>
+    </div>
+  );
 }
 
 export default Bottom;

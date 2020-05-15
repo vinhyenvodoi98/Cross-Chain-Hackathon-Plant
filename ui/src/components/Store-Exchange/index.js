@@ -3,6 +3,9 @@ import React from "react";
 import "./style.css";
 import testPlant from "../../images/bellpeppers1_background.png";
 import oxyImg from "../../images/oxygen_bubble_big.png";
+import { State } from "../../constant";
+import { useDispatch, useSelector } from "react-redux";
+import * as actions from "../../store/actions";
 
 // const style = { background: "#0092ff", padding: "8px 0" };
 
@@ -18,7 +21,7 @@ for (var i = 0; i < 30; i++) {
   items.push(plant1);
 }
 
-function Item(props) {
+function Item() {
   return (
     <Col className="gutter-row r-bot-10px r-top-10px " span={6}>
       <div className="bg-swapItem swapItem">
@@ -28,21 +31,25 @@ function Item(props) {
             <strong className="number">100k</strong>
           </div>
         </div>
-        <img
-          src={testPlant}
-          className="swapItemImg center opa-03 bgc-swapItem "
-          alt=""
-        />
+        <div className="divSwapImg center">
+          <img src={testPlant} className=" swapItemImg " alt="" />
+          <h2 className="priceSwapItem"> +3310 </h2>
+        </div>
       </div>
     </Col>
   );
 }
 
-function Store(props) {
+function Store() {
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state);
+
   return (
     <Row gutter={[20, 20]} className="overflow bgc-smoke">
-      {items.map((item) => {
-        return <Item />;
+      {state.plants.map((item) => {
+        if (item.state === State.INSTORE) {
+          return <Item />;
+        }
       })}
     </Row>
   );
