@@ -131,10 +131,7 @@ function getActiveSocket(endpoint) {
   return endpointToSocket.get(endpoint);
 }
 
-export function activateWebSocket(
-  socketListeners = {},
-  endpoint = '/private/wallet-bridge',
-) {
+export function activateWebSocket(socketListeners = {}, endpoint = '/private/wallet-bridge') {
   if (getActiveSocket(endpoint)) return;
   createSocket(socketListeners, endpoint);
 }
