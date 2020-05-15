@@ -16,13 +16,14 @@ function Top() {
   return (
     <div className='oxy-area p-10px'>
       <div className='oxy-num'>
-        {console.log(state)}
         <img src={oxyImg} className='oxy-img' alt='oxy' />
         <strong className='number'>
-          {// fetch wallet data
-          state.purses.length !== 0
-            ? `${state.purses[0].extent} ${state.purses[0].issuerPetname}`
-            : 'not connected'}
+          {
+            // fetch wallet data
+            state.purses.length !== 0
+              ? `${state.purses[0].extent} ${state.purses[0].issuerPetname}`
+              : 'not connected'
+          }
         </strong>
       </div>
     </div>

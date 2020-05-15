@@ -16,7 +16,7 @@ export default harden(({ publicAPI, http }, _inviteMaker) => {
 
   const fail = e => {
     const obj = {
-      type: 'encouragement/encouragedError',
+      type: 'bonsai/encouragedError',
       data: (e && e.message) || e
     };
     sendToSubscribers(obj);
@@ -25,7 +25,7 @@ export default harden(({ publicAPI, http }, _inviteMaker) => {
   const doOneNotification = updateResponse => {
     // Publish to our subscribers.
     const obj = {
-      type: 'encouragement/encouragedResponse',
+      type: 'bonsai/encouragedResponse',
       data: updateResponse.value,
     };
     sendToSubscribers(obj);
@@ -35,11 +35,6 @@ export default harden(({ publicAPI, http }, _inviteMaker) => {
       .getUpdateSince(updateResponse.updateHandle)
       .then(doOneNotification, fail);
   };
-
-  notifier = E(publicAPI).getNotifier();
-  E(notifier)
-    .getUpdateSince()
-    .then(doOneNotification, fail);
 
   return harden({
     getCommandHandler() {
@@ -59,20 +54,19 @@ export default harden(({ publicAPI, http }, _inviteMaker) => {
         async onMessage(obj, { channelHandle }) {
           // These are messages we receive from either POST or WebSocket.
           switch (obj.type) {
-            case 'encouragement/getEncouragement': {
-              
-              return harden({
-                type: 'encouragement/getEncouragementResponse',
-                instanceRegKey: undefined,
-                data: await E(publicAPI).getFreeEncouragement(),
-              });
-            }
+            // case 'bonsai/getEncouragement': {
 
-            case 'encouragement/subscribeNotifications': {
-              
+            //   return harden({
+            //     type: 'bonsai/getEncouragementResponse',
+            //     instanceRegKey: undefined,
+            //     data: await E(publicAPI).getFreeEncouragement(),
+            //   });
+            // }
+
+            case 'bonsai/getAvalablePlant': {
               return harden({
-                type: 'encouragement/subscribeNotificationsResponse',
-                data: true,
+                type: 'bonsai/getAvalablePlantResponse',
+                data:  await E(publicAPI).getAvailablePlants(),
               });
             }
 
