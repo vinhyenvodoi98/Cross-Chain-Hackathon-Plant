@@ -17,7 +17,7 @@ export const makeContract = harden(zcf => {
 
   const {
     // generate assets
-    terms: { name, price, count, plant_imgs, expectedAmountPerPlant },
+    terms: { name, count, plantImgs, expectedAmountPerPlant },
     issuerKeywordRecord: { Money: moneyIssuer },
   } = zcf.getInstanceRecord();
 
@@ -39,8 +39,8 @@ export const makeContract = harden(zcf => {
               name: name[i],
               plantId: plantNumber,
               state,
-              price,
-              plant_img: plant_imgs[i],
+              price: expectedAmountPerPlant.extent,
+              plant_img: plantImgs[i],
             });
           }),
       ),

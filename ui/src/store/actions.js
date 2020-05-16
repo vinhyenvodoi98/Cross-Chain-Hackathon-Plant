@@ -19,6 +19,7 @@ export const activateConnection = (active) => async (dispatch) => {
 
 export const UPDATE_PURSES = 'UPDATE_PURSES';
 export const updatePurses = (data) => async (dispatch) => {
+  console.log('purses', data);
   dispatch({
     type: UPDATE_PURSES,
     purses: data,
@@ -67,12 +68,21 @@ export const messageHandler = (message) => async (dispatch) => {
   const { type, data } = message;
   console.log('wallet <', message);
   if (type === 'walletUpdatePurses') {
-    //update Pureses
+    // update Pureses
     dispatch(updatePurses(JSON.parse(data)));
+    // update Avalable tree
+    doFetch(
+      {
+        type: 'bonsai/getAvalablePlant',
+      },
+      '/api'
+    );
   } else if (type === 'walletOfferDescriptions') {
     // TODO what is walletOfferDescriptions do ?
     console.log(data);
     // dispatch(updateOffers(data));
+  } else if (type === 'walletOfferAdded') {
+    window.open(data);
   }
 };
 
@@ -83,20 +93,11 @@ export const apiMessageHandler = (message) => async (dispatch) => {
     dispatch(updatePlants(data));
     console.log('data', data);
   }
-  // if (type === 'walletUpdatePurses') {
-  //update Pureses
-  //   dispatch(updatePurses(JSON.parse(data)));
-  // } else if (type === 'walletOfferDescriptions') {
-  // TODO what is walletOfferDescriptions do ?
-  // console.log(data);
-  // dispatch(updateOffers(data));
-  // }
 };
 
 //// Create Offer
-export const createOffer = (number, pursePetname) => async (dispatch, getState) => {
+export const createOffer = (plants) => async (dispatch, getState) => {
   const state = getState();
-  console.log(state);
   const now = Date.now();
   const offer = {
     // JSONable ID for this offer.  This is scoped to the origin.
@@ -111,16 +112,21 @@ export const createOffer = (number, pursePetname) => async (dispatch, getState) 
     //   E(target)[hookMethod](...hookArgs)
     hooks: {
       publicAPI: {
-        getInvite: ['makeInvite'], // E(publicAPI).makeInvite()
+        getInvite: ['makeBuyerInvite'], // E(publicAPI).makeBuyerInvite()
       },
     },
 
     proposalTemplate: {
+      want: {
+        Plant: {
+          pursePetname: 'Garden',
+          extent: plants,
+        },
+      },
       give: {
-        Tip: {
-          // The pursePetname identifies which purse we want to use
-          pursePetname: pursePetname,
-          extent: Number(number),
+        Money: {
+          pursePetname: 'Fun budget',
+          extent: plants[0].price,
         },
       },
       exit: { onDemand: null },
@@ -130,5 +136,5 @@ export const createOffer = (number, pursePetname) => async (dispatch, getState) 
   doFetch({
     type: 'walletAddOffer',
     data: offer,
-  });
+  }).then(() => console.log('Aaaaaaaaaaaaaaaaaaaaaaa'));
 };

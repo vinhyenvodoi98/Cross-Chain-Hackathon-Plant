@@ -4,6 +4,7 @@ import bstImg from 'images/icn_boosters.png';
 import { Modal, Button } from 'antd';
 import PlantCollection from '../PlantCollection';
 import Store from '../Store-Exchange';
+
 import './bottom.css';
 
 function Bottom(props) {
