@@ -28,11 +28,15 @@
   margin-right: 10px;
 }
 
-.plantImg {
-  height: 70%;
+.plantAva > .plantImg {
+  width: 100%;
+  max-height: 90%;
   position: absolute;
   bottom: 0px;
-  margin: 0 auto;
+  margin: auto;
+  /* top: 10px; */
+  /* left: 5px;
+  right: 5px; */
 }
 
 .item {
