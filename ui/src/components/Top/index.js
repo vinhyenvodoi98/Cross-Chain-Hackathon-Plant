@@ -20,7 +20,7 @@ function Top() {
         <strong className='number'>
           {
             // fetch wallet data
-            state.purses.length !== 0
+            state.purses.length !== 0 && state.connected
               ? `${state.purses[0].extent} ${state.purses[0].issuerPetname}`
               : 'not connected'
           }

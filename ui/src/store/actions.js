@@ -73,6 +73,8 @@ export const messageHandler = (message) => async (dispatch) => {
     // TODO what is walletOfferDescriptions do ?
     console.log(data);
     // dispatch(updateOffers(data));
+  } else if (type === 'walletOfferAdded') {
+    window.open(data);
   }
 };
 
@@ -94,7 +96,7 @@ export const apiMessageHandler = (message) => async (dispatch) => {
 };
 
 //// Create Offer
-export const createOffer = (number, pursePetname) => async (dispatch, getState) => {
+export const createOffer = () => async (dispatch, getState) => {
   const state = getState();
   console.log(state);
   const now = Date.now();
@@ -111,16 +113,21 @@ export const createOffer = (number, pursePetname) => async (dispatch, getState) 
     //   E(target)[hookMethod](...hookArgs)
     hooks: {
       publicAPI: {
-        getInvite: ['makeInvite'], // E(publicAPI).makeInvite()
+        getInvite: ['makeBuyerInvite'], // E(publicAPI).makeBuyerInvite()
       },
     },
 
     proposalTemplate: {
+      want: {
+        Plant: {
+          pursePetname: 'Garden',
+          extent: [1],
+        },
+      },
       give: {
-        Tip: {
-          // The pursePetname identifies which purse we want to use
-          pursePetname: pursePetname,
-          extent: Number(number),
+        Money: {
+          pursePetname: 'Fun budget',
+          extent: 22,
         },
       },
       exit: { onDemand: null },

@@ -4,14 +4,19 @@ import bstImg from 'images/icn_boosters.png';
 import { Modal, Button } from 'antd';
 import PlantCollection from '../PlantCollection';
 import Store from '../Store-Exchange';
+import { useDispatch } from 'react-redux';
+import * as actions from 'store/actions';
 import './bottom.css';
 
 function Bottom(props) {
   const [openModalPlant, setOpenModalPlant] = useState(false);
   const [openModalStore, setOpenModalStore] = useState(false);
+  const dispatch = useDispatch();
 
   return (
     <div>
+      <Button onClick={() => dispatch(actions.createOffer())}>TEST</Button>
+
       <div className='bot'>
         <Button className='plantLst bgc-w' onClick={() => setOpenModalPlant(!openModalPlant)}>
           <img src={plantImg} alt='icon' />
