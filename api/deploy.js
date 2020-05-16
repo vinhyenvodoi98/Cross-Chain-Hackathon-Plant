@@ -5,6 +5,8 @@ import harden from "@agoric/harden";
 import { makeGetInstanceHandle } from "@agoric/zoe/src/clientSupport";
 import makeAmountMath from "@agoric/ertp/src/amountMath";
 
+import { plant_imgs } from "./plant_imgs";
+
 export default async function deployApi(
   referencesPromise,
   { bundleSource, pathResolve }
@@ -42,9 +44,21 @@ export default async function deployApi(
     movieContractInstallationHandle,
     issuerKeywordRecords,
     {
-      name: ["Lotus", "Sun"],
-      count: 2,
+      name: [
+        "Lotus",
+        "Sun",
+        "plant3",
+        "plant4",
+        "plant5",
+        "plant6",
+        "plant7",
+        "plant8",
+        "plant9",
+        "plant10",
+      ],
+      count: 10,
       price: 20,
+      plant_imgs,
       expectedAmount,
     }
   );

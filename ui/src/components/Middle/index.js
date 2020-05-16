@@ -1,18 +1,18 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import shelfImg from 'images/shelf_side_rotate.png';
-import testPlant from 'images/bellpeppers1_background.png';
+// import testPlant from 'images/bellpeppers1_background.png';
 import testPot from 'images/pot_empty.png';
 import './Middle.css';
 import { State } from 'constant';
-import { useDispatch, useSelector } from 'react-redux';
-import * as actions from 'store/actions';
+import { useSelector } from 'react-redux';
+// import * as actions from 'store/actions';
 
 function Plant(props) {
   if (props.plant.state === State.PLANTED) {
     return (
       <div className='plant'>
         <div className='stem'>
-          <img src={testPlant} alt='' className='plantImg' />
+          <img src={props.plant.plant_img} alt='' className='plantImg' />
         </div>
         <div className='pot'>
           <img src={testPot} alt='' className='potImg' />
@@ -25,11 +25,11 @@ function Plant(props) {
 }
 
 function Middle() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const state = useSelector((state) => state);
-  useEffect(() => {
-    dispatch(actions.getAllPlants());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(actions.getAllPlants());
+  // }, [dispatch]);
 
   return (
     <div className='plant-area'>

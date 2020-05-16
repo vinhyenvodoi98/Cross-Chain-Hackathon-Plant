@@ -4,39 +4,24 @@ import './style.css';
 import { State } from 'constant';
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from 'store/actions';
-import testPlant from 'images/bellpeppers1_background.png';
+// import testPlant from 'images/bellpeppers1_background.png';
 // import oxyImg from 'images/oxygen_bubble_big.png';
 
 function Item(props) {
   return (
     <Col className='gutter-row r-bot-10px r-top-10px' span={8}>
-      {/* <div className='bg-swapItem swapItem'>
-        <div className='bgc-w mg-15px r-bot-10px '>
-
-          <div className='oxy-num unset-width flex-display p-left-5px'>
-            <img src={oxyImg} className='oxy-img' alt='oxy' />
-            <strong className='number'>100k</strong>
-          </div>
-
-        </div>
-        <div className='divSwapImg center'>
-          <img src={testPlant} className=' swapItemImg ' alt='' />
-          <h2 className='priceSwapItem'> +3310 </h2>
-        </div>
-      </div> */}
-
       <div className='align-center'>
         <strong> {props.item.name} </strong>
       </div>
 
       <div className='bg-swapItem'>
-        <img src={testPlant} className=' h-160px w-100 ' alt='' />
+        <img src={props.item.plant_img} className=' h-160px w-100 ' alt='' />
       </div>
 
       <div>
         {/* <img src={oxyImg} className='oxy-img' alt='oxy' /> */}
         <Button className='w-100 r-bot-10px' type='primary' onClick={props.onBuyPlant}>
-          <strong className=''>Buy: {props.item.simoola} Simoola</strong>
+          <strong className=''>Buy: {props.item.price} Moola</strong>
         </Button>
       </div>
     </Col>
@@ -52,15 +37,26 @@ function Store(props) {
     props.onClose();
   };
 
-  return (
-    <Row gutter={[20, 20]} className='overflow bgc-smoke'>
-      {state.plants.map((item, index) => {
-        if (item.state === State.INSTORE) {
-          return <Item key={index} onBuyPlant={() => handleBuyPlant(index)} item={item} />;
-        } else return <div key={index} />;
-      })}
-    </Row>
-  );
+  const plants = state.plants.filter((item) => item.state === State.INSTORE);
+  if (plants.length === 0) {
+    return (
+      <div>
+        <div className='collection align-center'>
+          <strong>No plant in the store</strong>
+        </div>
+      </div>
+    );
+  } else {
+    return (
+      <Row gutter={[20, 20]} className='overflow bgc-smoke'>
+        {plants.map((item) => {
+          return (
+            <Item key={item.plantId} onBuyPlant={() => handleBuyPlant(item.plantId)} item={item} />
+          );
+        })}
+      </Row>
+    );
+  }
 }
 
 export default Store;

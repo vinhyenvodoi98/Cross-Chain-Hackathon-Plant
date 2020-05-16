@@ -3,7 +3,7 @@ import { Row, Button } from 'antd';
 import { State } from 'constant';
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from 'store/actions';
-import testPlant from 'images/bellpeppers1_background.png';
+// import testPlant from 'images/bellpeppers1_background.png';
 
 import './style.css';
 
@@ -16,37 +16,42 @@ function PlantCollection(props) {
     props.onClose();
   };
 
-  return (
-    <div>
-      <div className='collection'>
-        {state.plants.map((item, index) => {
-          if (item.state === State.INSTOCK) {
+  const plants = state.plants.filter((item) => item.state === State.INSTOCK);
+  if (plants.length === 0) {
+    return (
+      <div>
+        <div className='collection align-center'>
+          <strong>No plant in the stock</strong>
+        </div>
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <div className='collection'>
+          {plants.map((item) => {
             return (
-              <Row key={index} className='bgc-w item'>
+              <Row key={item.plantId} className='bgc-w item'>
                 <div className='plantAva bgc-blue'>
-                  <img src={testPlant} className='plantImg' alt='' />
+                  <img src={item.plant_img} className='plantImg' alt='' />
                 </div>
                 <div>
                   <strong>{item.name}</strong> <br />
-                  <span>Level {item.level}</span> <br />
-                  <span className='green'>{item.oxy} oxygen/s</span>
                 </div>
                 <Button
                   type='primary'
-                  className='bgc-green radius '
-                  onClick={() => handleTakeOut(index)}
+                  className='bgc-green radius align-center'
+                  onClick={() => handleTakeOut(item.plantId)}
                 >
                   <strong>Plant</strong>
                 </Button>
               </Row>
             );
-          } else {
-            return <div key={index} />;
-          }
-        })}
+          })}
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default PlantCollection;
