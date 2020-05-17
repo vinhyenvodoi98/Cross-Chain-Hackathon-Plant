@@ -13,7 +13,7 @@
 }
 
 .bg-swapItem {
-  background-image: url(../../images/backgroud.png) !important;
+  background-image: url(../../images/background.png) !important;
   /* background: linear-gradient(0deg, #89f7fe 0%, #66a6ff 100%); */
   background-repeat: no-repeat !important;
   background-size: cover !important;

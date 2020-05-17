@@ -16,7 +16,7 @@
 
 .bg {
   background-image: url(./images/shelf_side.png), url(./images/shelf_side.png),
-    url(./images/backgroud.png) !important;
+    url(./images/background.png) !important;
   /* background: linear-gradient(0deg, #89f7fe 0%, #66a6ff 100%); */
   background-repeat: no-repeat, no-repeat, repeat !important;
   background-size: contain, contain, contain !important;

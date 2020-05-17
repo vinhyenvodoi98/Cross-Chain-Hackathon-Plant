@@ -32,8 +32,12 @@ function Store(props) {
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
 
-  const handleBuyPlant = (id) => {
-    dispatch(actions.changeStatePlant(id, State.INSTOCK, state.plants));
+  const handleBuyPlant = (item) => {
+    const plants = [];
+    // dispatch(actions.changeStatePlant(item.plantId, State.INSTOCK, state.plants));
+    plants.push(item);
+    dispatch(actions.createOffer(plants));
+    console.log(item);
     props.onClose();
   };
 
@@ -50,9 +54,7 @@ function Store(props) {
     return (
       <Row gutter={[20, 20]} className='overflow bgc-smoke'>
         {plants.map((item) => {
-          return (
-            <Item key={item.plantId} onBuyPlant={() => handleBuyPlant(item.plantId)} item={item} />
-          );
+          return <Item key={item.plantId} onBuyPlant={() => handleBuyPlant(item)} item={item} />;
         })}
       </Row>
     );

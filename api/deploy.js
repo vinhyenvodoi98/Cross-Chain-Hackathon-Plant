@@ -5,7 +5,7 @@ import harden from "@agoric/harden";
 import { makeGetInstanceHandle } from "@agoric/zoe/src/clientSupport";
 import makeAmountMath from "@agoric/ertp/src/amountMath";
 
-import { plant_imgs } from "./plant_imgs";
+import { plantImgs } from "./plantImgs";
 
 export default async function deployApi(
   referencesPromise,
@@ -36,8 +36,10 @@ export default async function deployApi(
     );
 
   const moolaAmountMath = await getLocalAmountMath(moolaIssuer);
-  const expectedAmount = moolaAmountMath.make(22);
-  console.log(expectedAmount);
+  const expectedAmountPerPlant = moolaAmountMath.make(22);
+  console.log(expectedAmountPerPlant);
+
+  const MONEY_BRAND_REGKEY = await E.G(E(wallet).getIssuerNames(moolaIssuer)).brandRegKey;
 
   const issuerKeywordRecords = harden({ Money: moolaIssuer });
   const adminInvite = await E(zoe).makeInstance(
@@ -57,9 +59,8 @@ export default async function deployApi(
         "plant10",
       ],
       count: 10,
-      price: 20,
-      plant_imgs,
-      expectedAmount,
+      plantImgs,
+      expectedAmountPerPlant,
     }
   );
   console.log("- SUCCESS! contract instance is running on Zoe");
@@ -68,10 +69,8 @@ export default async function deployApi(
   const getInstanceHandle = makeGetInstanceHandle(inviteIssuer);
   const instanceHandle = await getInstanceHandle(adminInvite);
   const { publicAPI, terms } = await E(zoe).getInstanceRecord(instanceHandle);
-  const invite = await E(publicAPI).makeBuyerInvite();
-  const buyerInvite = await E(inviteIssuer).claim(invite);
-
-  console.log(await E(inviteIssuer).isLive(buyerInvite));
+  // const invite = await E(publicAPI).makeBuyerInvite();
+  // const buyerInvite = await E(inviteIssuer).claim(invite);
 
   const { payout: adminPayoutP, outcome: adminOutcomeP, cancelObj } = await E(
     zoe
@@ -84,9 +83,15 @@ export default async function deployApi(
     `${CONTRACT_NAME}instance`,
     instanceHandle
   );
+  const plantIssuer = await E(publicAPI).getPlantIssuer();
+  const PLANT_ISSUER_REGKEY = await E(registry).register(`${CONTRACT_NAME}plant`, plantIssuer);
+  const PLANT_BRAND_REGKEY = await E(registry).register(`plant`, await E(plantIssuer).getBrand());
 
   console.log(`-- Contract Name: ${CONTRACT_NAME}`);
   console.log(`-- InstanceHandle Register Key: ${INSTANCE_REG_KEY}`);
+  console.log(`-- PLANT_ISSUER_REGKEY: ${PLANT_ISSUER_REGKEY}`);
+  console.log(`-- PLANT_BRAND_REGKEY: ${PLANT_BRAND_REGKEY}`);
+  console.log(`-- MONEY_BRAND_REGKEY: ${MONEY_BRAND_REGKEY}`)
 
   const { source, moduleFormat } = await bundleSource(
     pathResolve("./src/handler.js")
@@ -115,7 +120,8 @@ export default async function deployApi(
   // Re-save the constants somewhere where the UI and api can find it.
   const dappConstants = {
     INSTANCE_REG_KEY,
-    // BRIDGE_URL: 'agoric-lookup:https://local.agoric.com?append=/bridge',
+    brandRegKeys: { Money: MONEY_BRAND_REGKEY, Plant: PLANT_BRAND_REGKEY },
+    issuerRegKeys: { Plant: PLANT_ISSUER_REGKEY },
     BRIDGE_URL: "http://127.0.0.1:8000",
     API_URL: "http://127.0.0.1:8000",
   };
