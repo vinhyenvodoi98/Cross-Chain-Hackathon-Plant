@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import plantImg from 'images/icn_plantlist.png';
+// import plantImg from 'images/icn_plantlist.png';
 import bstImg from 'images/icn_boosters.png';
 import { Modal, Button } from 'antd';
 import PlantCollection from '../PlantCollection';
@@ -18,9 +18,9 @@ function Bottom(props) {
       <Button onClick={() => dispatch(actions.createOffer())}>TEST</Button>
 
       <div className='bot'>
-        <Button className='plantLst bgc-w' onClick={() => setOpenModalPlant(!openModalPlant)}>
+        {/* <Button className='plantLst bgc-w' onClick={() => setOpenModalPlant(!openModalPlant)}>
           <img src={plantImg} alt='icon' />
-        </Button>
+        </Button> */}
         <Button className='bstLst bgc-w' onClick={() => setOpenModalStore(!openModalStore)}>
           <img src={bstImg} alt='icon' />
         </Button>

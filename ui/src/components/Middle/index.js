@@ -11,9 +11,9 @@ function Plant(props) {
   if (props.plant.state === State.PLANTED) {
     return (
       <div className='plant'>
-        <div className='stem'>
+        {/* <div className='stem'>
           <img src={props.plant.plant_img} alt='' className='plantImg' />
-        </div>
+        </div> */}
         <div className='pot'>
           <img src={testPot} alt='' className='potImg' />
         </div>

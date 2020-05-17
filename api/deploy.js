@@ -5,7 +5,7 @@ import harden from "@agoric/harden";
 import { makeGetInstanceHandle } from "@agoric/zoe/src/clientSupport";
 import makeAmountMath from "@agoric/ertp/src/amountMath";
 
-import { plantImgs } from "./plantImgs";
+// import { plantImgs } from "./plantImgs";
 
 export default async function deployApi(
   referencesPromise,
@@ -59,8 +59,8 @@ export default async function deployApi(
         "plant10",
       ],
       count: 10,
-      price: 20,
-      plantImgs,
+      // price: 20,
+      // plantImgs,
       expectedAmount,
     }
   );

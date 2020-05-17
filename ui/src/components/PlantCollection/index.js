@@ -32,9 +32,9 @@ function PlantCollection(props) {
           {plants.map((item) => {
             return (
               <Row key={item.plantId} className='bgc-w item'>
-                <div className='plantAva bgc-blue'>
+                {/* <div className='plantAva bgc-blue'>
                   <img src={item.plant_img} className='plantImg' alt='' />
-                </div>
+                </div> */}
                 <div>
                   <strong>{item.name}</strong> <br />
                 </div>

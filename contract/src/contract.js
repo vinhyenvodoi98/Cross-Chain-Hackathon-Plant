@@ -11,13 +11,13 @@ import {
 export const makeContract = harden(zcf => {
   // Create the internal Plant mint
   const { issuer, mint, amountMath: plantAmountMath } = produceIssuer(
-    'Bonsai',
+    'Garden',
     'set',
   );
 
   const {
     // generate assets
-    terms: { name, price, count, plantImgs, expectedAmountPerPlant },
+    terms: { name, count, expectedAmountPerPlant },
     issuerKeywordRecord: { Money: moneyIssuer },
   } = zcf.getInstanceRecord();
 
@@ -34,13 +34,13 @@ export const makeContract = harden(zcf => {
           .fill()
           .map((_, i) => {
             const plantNumber = i + 1;
-            const state = 3; // PLANTED: 1, INSTOCK: 2, INSTORE: 3
+            // const state = 3; // PLANTED: 1, INSTOCK: 2, INSTORE: 3
             return harden({
-              name: name[i],
+              // name: name[i],
               plantId: plantNumber,
-              state,
-              price,
-              plant_img: plantImgs[i],
+              // state,
+              // price,
+              // plant_img: plantImgs[i],
             });
           }),
       ),
@@ -64,6 +64,8 @@ export const makeContract = harden(zcf => {
         auditoriumOfferHandle,
       );
       const currentBuyerAllocation = zcf.getCurrentAllocation(buyerOfferHandle);
+
+      console.log('buyerOffer', JSON.stringify(buyerOffer.proposal.want.Plant));
 
       const wantedPlantsCount = buyerOffer.proposal.want.Plant.extent.length;
       const wantedMoney = expectedAmountPerPlant.extent * wantedPlantsCount;

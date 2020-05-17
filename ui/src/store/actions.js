@@ -101,16 +101,10 @@ export const createOffer = () => async (dispatch, getState) => {
   console.log(state);
   const now = Date.now();
   const offer = {
-    // JSONable ID for this offer.  This is scoped to the origin.
     id: now,
 
-    // Contract-specific metadata.
     instanceRegKey: state.instanceId,
 
-    // Format is:
-    //   hooks[targetName][hookName] = [hookMethod, ...hookArgs].
-    // Then is called within the wallet as:
-    //   E(target)[hookMethod](...hookArgs)
     hooks: {
       publicAPI: {
         getInvite: ['makeBuyerInvite'], // E(publicAPI).makeBuyerInvite()
@@ -121,13 +115,13 @@ export const createOffer = () => async (dispatch, getState) => {
       want: {
         Plant: {
           pursePetname: 'Garden',
-          extent: [1],
+          extent: [{ plantId: 1 }],
         },
       },
       give: {
         Money: {
           pursePetname: 'Fun budget',
-          extent: 22,
+          extent: 50,
         },
       },
       exit: { onDemand: null },
