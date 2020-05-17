@@ -35,7 +35,7 @@ function PlantCollection(props) {
                 <div className='plantAva bgc-blue'>
                   <img src={item.plant_img} className='plantImg' alt='' />
                 </div>
-                <div>
+                <div className="center-ver">
                   <strong>{item.name}</strong> <br />
                 </div>
                 <Button

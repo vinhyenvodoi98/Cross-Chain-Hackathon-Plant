@@ -8,10 +8,11 @@
   margin-bottom: auto;
   /* position: relative; */
   line-height: 0 !important;
+  margin-bottom: 60px;
 }
 
 .row {
-  height: 130px;
+  height: 140px;
   display: grid;
   grid-template-columns: 25% 25% 25% 25%;
   line-height: 1.5;

@@ -1,16 +1,25 @@
-:root {
-  --oxy-height: 15px;
-  --oxy-width: 15px;
+#root {
+  background-color: black;
+  /* vertical-align: middle; */
+  height: 100% ;
 }
 
 .bgc-dark {
   background-color: black;
 }
 
+.center-abs {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
 .App {
   text-align: center;
-  width: 425px;
-  height: 100%;
+  width: 500px;
+  /* height: 100%; */
   margin: auto;
 }
 
@@ -67,6 +76,14 @@
 
 .center {
   margin: auto !important;
+}
+
+.center-ver {
+  margin: auto 0 !important;
+}
+
+.center-hor {
+  margin: 0 auto !important;
 }
 
 .mg-15px {
