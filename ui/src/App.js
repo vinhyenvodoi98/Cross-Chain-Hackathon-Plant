@@ -12,7 +12,7 @@ const { Header, Footer, Content } = Layout;
 
 function App() {
   return (
-    <Layout className='App center-abs bg r-top-10px r-bot-10px'>
+    <Layout className='App bg'>
       {/* connect to wallet */}
       <Application />
       {/* UI */}

@@ -1,20 +1,13 @@
-#root {
-  background-color: black;
-  /* vertical-align: middle; */
-  height: 100% ;
-}
-
+body {
+    background-image: url(./images/sky-bg.png);
+    background-repeat: no-repeat;
+  
+   }
+  
 .bgc-dark {
   background-color: black;
 }
 
-.center-abs {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-}
 
 .App {
   text-align: center;
