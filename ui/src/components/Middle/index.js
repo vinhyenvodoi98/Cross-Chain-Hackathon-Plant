@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import shelfImg from 'images/shelf_side_rotate.png';
 // import testPlant from 'images/bellpeppers1_background.png';
 import testPot from 'images/pot_empty.png';
@@ -13,6 +13,7 @@ function Plant(props) {
       {!!props.plant && props.plant.state === State.PLANTED ? (
         <div className='plant'>
           <div className='stem'>
+            {console.error(props.plant)}
             <img src={props.plant.plant_img} alt='' className='plantImg' />
           </div>
           <div className='pot'>
@@ -27,26 +28,21 @@ function Plant(props) {
 }
 
 function Middle() {
-  const purses = useSelector((state) => state.purses);
+  const state = useSelector((state) => state);
 
-  var plants_init = new Array(12).fill(null);
-  // const [plants_init, setPlantsInit] = useState(new Array(12).fill(null));
-
-  if (purses.length !== 0 && purses[2].extent.length !== 0) {
-    // console.log('middel', purses);
-    // var temp = plants_init;
-    purses[2].extent.map((item) => {
-      plants_init[item.plantId] = item;
-      // console.log('item', item);
-    });
-    // setPlantsInit(temp);
-  }
+  const [plants_init, setPlantsInit] = useState(new Array(12).fill(null));
+  useEffect(() => {
+    if (state.purses.length !== 0 && state.purses[2].extent.length !== 0) {
+      var plants_init = new Array(12).fill(null);
+      state.purses[2].extent.map((item) => (plants_init[item.plantId] = item));
+      setPlantsInit(plants_init);
+    }
+  }, [state]);
 
   return (
     <div className='plant-area'>
       <div className='row' />
       <img className='shelf' src={shelfImg} alt='' />
-      {console.log('plant_init', plants_init)}
       <div>
         <div className='row'>
           {plants_init.slice(0, 4).map((item, index) => {
@@ -66,7 +62,6 @@ function Middle() {
           })}
         </div>
       </div>
-      )}
       <img className='shelf' src={shelfImg} alt='' />
     </div>
   );

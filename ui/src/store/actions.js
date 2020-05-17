@@ -55,19 +55,18 @@ export const changeStatePlant = (id, _state) => (dispatch, getState) => {
   console.log('plants', plants);
 };
 
+export const TEST = 'TEST';
 export const changeStatePursesPlant = (id, _state) => (dispatch, getState) => {
   let state = getState();
   let purses = state.purses;
 
   if (purses[2]) {
     var plant = purses[2].extent.filter((item) => item.plantId === id);
-    plant.map((item) => {
-      item.state = _state;
-    });
+    plant.map((item) => (item.state = _state));
     console.log('pursessssssssssss', purses[2]);
     dispatch({
-      type: UPDATE_PURSES,
-      purses,
+      type: TEST,
+      test: purses,
     });
   }
 };

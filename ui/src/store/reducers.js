@@ -11,6 +11,7 @@ const initialState = {
   purses: [],
   instanceId,
   plants: [],
+  test: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -29,6 +30,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         purses: action.purses,
+      };
+    case connect.TEST:
+      return {
+        ...state,
+        test: action.test,
       };
     case connect.UPDATE_PLANTS:
       return {
