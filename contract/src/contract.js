@@ -34,11 +34,9 @@ export const makeContract = harden(zcf => {
           .fill()
           .map((_, i) => {
             const plantNumber = i + 1;
-            const state = 3; // PLANTED: 1, INSTOCK: 2, INSTORE: 3
             return harden({
               name: name[i],
               plantId: plantNumber,
-              state,
               price: expectedAmountPerPlant.extent,
               plant_img: plantImgs[i],
             });
