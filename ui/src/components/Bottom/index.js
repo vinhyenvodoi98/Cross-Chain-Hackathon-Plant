@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import plantImg from 'images/icn_plantlist.png';
-import bstImg from 'images/icn_boosters.png';
+import bstImg from 'images/icn_shop.png';
 import { Modal, Button } from 'antd';
 import PlantCollection from '../PlantCollection';
 import Store from '../Store-Exchange';
@@ -36,7 +36,7 @@ function Bottom(props) {
       </Modal>
 
       <Modal
-        title='Swap Plant'
+        title='Plant Shop'
         visible={openModalStore}
         cancelButtonProps={{ style: { display: 'none' } }}
         okButtonProps={{ style: { display: 'none' } }}
