@@ -11,6 +11,17 @@ function PlantCollection(props) {
   const purses = useSelector((state) => state.purses);
 
   const handleTakeOut = (id) => {
+    var stockStorage = localStorage.getItem('stock');
+
+    if (!!stockStorage) {
+      stockStorage = JSON.parse(stockStorage);
+    } else {
+      stockStorage = [];
+    }
+    stockStorage.push(id);
+    stockStorage = JSON.stringify(stockStorage);
+    localStorage.setItem('stock', stockStorage);
+    dispatch(actions.changeStatePursesPlant(id, State.PLANTED));
     dispatch(actions.changeStatePursesPlant(id, State.PLANTED));
     props.onClose();
   };
