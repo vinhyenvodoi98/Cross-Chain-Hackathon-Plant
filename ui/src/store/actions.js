@@ -1,5 +1,5 @@
 import { doFetch } from 'utils/fetch-websocket';
-import { State } from 'constant';
+// import { State } from 'constant';
 
 export const SERVER_CONNECTED = 'SERVER_CONNECTED';
 export const serverConnected = (connected) => async (dispatch) => {
@@ -19,19 +19,10 @@ export const activateConnection = (active) => async (dispatch) => {
 
 export const UPDATE_PURSES = 'UPDATE_PURSES';
 export const updatePurses = (data) => async (dispatch) => {
-  if (data[2].extent.length === 0) {
-    localStorage.removeItem('stock');
-  }
-  var stockStorage = localStorage.getItem('stock');
-  if (!!stockStorage) {
-    stockStorage = JSON.parse(stockStorage);
-    stockStorage.map((id) => dispatch(changeStatePursesPlant(id, State.PLANTED)));
-  } else {
-    dispatch({
-      type: UPDATE_PURSES,
-      purses: data,
-    });
-  }
+  dispatch({
+    type: UPDATE_PURSES,
+    purses: data,
+  });
 };
 
 export const UPDATE_PLANTS = 'UPDATE_PLANTS';
@@ -63,7 +54,6 @@ export const changeStatePursesPlant = (id, _state) => (dispatch, getState) => {
   if (purses[2]) {
     var plant = purses[2].extent.filter((item) => item.plantId === id);
     plant.map((item) => (item.state = _state));
-    console.log('pursessssssssssss', purses[2]);
     dispatch({
       type: TEST,
       test: purses,
@@ -88,18 +78,19 @@ export const messageHandler = (message) => async (dispatch) => {
     // update Pureses
     dispatch(updatePurses(JSON.parse(data)));
     // update Avalable tree
-    doFetch(
-      {
-        type: 'bonsai/getAvalablePlant',
-      },
-      '/api'
-    );
   } else if (type === 'walletOfferDescriptions') {
     // TODO what is walletOfferDescriptions do ?
     console.log(data);
     // dispatch(updateOffers(data));
   } else if (type === 'walletOfferAdded') {
     window.open(data);
+  } else if (message === 'onboardingcomplete') {
+    doFetch(
+      {
+        type: 'bonsai/getAvalablePlant',
+      },
+      '/api'
+    );
   }
 };
 
