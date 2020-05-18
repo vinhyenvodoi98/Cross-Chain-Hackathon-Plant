@@ -1,2 +1,3 @@
 node_modules
 defaults.js
+ui/src/conf/installationConstants.js
