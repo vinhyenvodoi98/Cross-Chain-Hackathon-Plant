@@ -13,7 +13,6 @@ function Plant(props) {
       {!!props.plant && props.plant.state === State.PLANTED ? (
         <div className='plant'>
           <div className='stem'>
-            {console.error(props.plant)}
             <img src={props.plant.plant_img} alt='' className='plantImg' />
           </div>
           <div className='pot'>
