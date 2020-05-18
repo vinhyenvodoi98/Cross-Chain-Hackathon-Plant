@@ -1,5 +1,7 @@
 <h1  align="center">Bonsai Exchange 👋</h1>
 
+![alt](https://github.com/vinhyenvodoi98/Cross-Chain-Hackathon-Plant/blob/master/images/app.png)
+
 # Bonsai Exchange Dapp
 This demonstrates the three important parts of
 a dapp and how they should be connected:
@@ -20,7 +22,7 @@ Bonsai Exchange :
 
 Future :
 
-1. The contract has the ability to update properties such as the life of a tree, which will display other forms of the tree such as sprouting, flowering, and fruiting.
+1. The contract has the ability to update properties such as the life of a plant, which will display other forms of the plant such as sprouting, flowering, and fruiting.
 
 ![alt](https://github.com/vinhyenvodoi98/Cross-Chain-Hackathon-Plant/blob/master/images/growing.png)
 
@@ -87,12 +89,12 @@ Go to another tab or browser and open http://localhost:8000/ to see and interact
 ![alt](https://github.com/vinhyenvodoi98/Cross-Chain-Hackathon-Plant/blob/master/images/plantshop.png)
 
 
-**Then sign wallet to use moola to buy tree**
+**Then sign wallet to use moola to buy plant**
 
 ![alt](https://github.com/vinhyenvodoi98/Cross-Chain-Hackathon-Plant/blob/master/images/sign.png)
 
 
-**The tree will be moved to the collection so you can plant it in the garden**
+**The plant will be moved to the collection so you can plant it in the garden**
 
 ![alt](https://github.com/vinhyenvodoi98/Cross-Chain-Hackathon-Plant/blob/master/images/collection.png)
 
