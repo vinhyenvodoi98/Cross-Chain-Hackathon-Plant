@@ -54,15 +54,6 @@ export default harden(({ publicAPI, http }, _inviteMaker) => {
         async onMessage(obj, { channelHandle }) {
           // These are messages we receive from either POST or WebSocket.
           switch (obj.type) {
-            // case 'bonsai/getEncouragement': {
-
-            //   return harden({
-            //     type: 'bonsai/getEncouragementResponse',
-            //     instanceRegKey: undefined,
-            //     data: await E(publicAPI).getFreeEncouragement(),
-            //   });
-            // }
-
             case 'bonsai/getAvalablePlant': {
               return harden({
                 type: 'bonsai/getAvalablePlantResponse',
