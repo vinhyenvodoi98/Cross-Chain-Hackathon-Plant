@@ -25,7 +25,7 @@ export const makeContract = harden(zcf => {
 
   const { rejectOffer, checkHook, escrowAndAllocateTo } = makeZoeHelpers(zcf);
 
-  let auditoriumOfferHandle;
+  let plantOfferHandle;
 
   return zcf.addNewIssuer(issuer, 'Plant').then(() => {
     const plantAmount = plantAmountMath.make(
@@ -45,22 +45,20 @@ export const makeContract = harden(zcf => {
     );
     const plantPayment = mint.mintPayment(plantAmount);
 
-    const auditoriumOfferHook = offerHandle => {
-      auditoriumOfferHandle = offerHandle;
+    const plantOfferHook = offerHandle => {
+      plantOfferHandle = offerHandle;
       return escrowAndAllocateTo({
         amount: plantAmount,
         payment: plantPayment,
         keyword: 'Plant',
-        recipientHandle: auditoriumOfferHandle,
+        recipientHandle: plantOfferHandle,
       }).then(() => defaultAcceptanceMsg);
     };
 
     const buyPlantOfferHook = buyerOfferHandle => {
       const buyerOffer = zcf.getOffer(buyerOfferHandle);
 
-      const currentAuditoriumAllocation = zcf.getCurrentAllocation(
-        auditoriumOfferHandle,
-      );
+      const currentPlantAllocation = zcf.getCurrentAllocation(plantOfferHandle);
       const currentBuyerAllocation = zcf.getCurrentAllocation(buyerOfferHandle);
 
       const wantedPlantsCount = buyerOffer.proposal.want.Plant.extent.length;
@@ -78,13 +76,13 @@ export const makeContract = harden(zcf => {
           );
         }
 
-        const wantedAuditoriumAllocation = {
+        const wantedPlantAllocation = {
           Money: moneyAmountMath.add(
-            currentAuditoriumAllocation.Money,
+            currentPlantAllocation.Money,
             currentBuyerAllocation.Money,
           ),
           Plant: plantAmountMath.subtract(
-            currentAuditoriumAllocation.Plant,
+            currentPlantAllocation.Plant,
             buyerOffer.proposal.want.Plant,
           ),
         };
@@ -98,8 +96,8 @@ export const makeContract = harden(zcf => {
         };
 
         zcf.reallocate(
-          [auditoriumOfferHandle, buyerOfferHandle],
-          [wantedAuditoriumAllocation, wantedBuyerAllocation],
+          [plantOfferHandle, buyerOfferHandle],
+          [wantedPlantAllocation, wantedBuyerAllocation],
         );
         zcf.complete([buyerOfferHandle]);
       } catch (err) {
@@ -114,7 +112,7 @@ export const makeContract = harden(zcf => {
     });
 
     return harden({
-      invite: zcf.makeInvitation(auditoriumOfferHook, 'auditorium'),
+      invite: zcf.makeInvitation(plantOfferHook, 'plant'),
       publicAPI: {
         makeBuyerInvite: () =>
           zcf.makeInvitation(
@@ -125,7 +123,7 @@ export const makeContract = harden(zcf => {
         getAvailablePlants() {
           // Because of a technical limitation in @agoric/marshal, an array of extents
           // is better than a Map https://github.com/Agoric/agoric-sdk/issues/838
-          return zcf.getCurrentAllocation(auditoriumOfferHandle).Plant.extent;
+          return zcf.getCurrentAllocation(plantOfferHandle).Plant.extent;
         },
       },
     });
