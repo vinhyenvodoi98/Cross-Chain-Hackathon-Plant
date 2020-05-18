@@ -1,5 +1,5 @@
 import { doFetch } from 'utils/fetch-websocket';
-import { plants_init } from '../constant';
+import { State } from 'constant';
 
 export const SERVER_CONNECTED = 'SERVER_CONNECTED';
 export const serverConnected = (connected) => async (dispatch) => {
@@ -19,11 +19,19 @@ export const activateConnection = (active) => async (dispatch) => {
 
 export const UPDATE_PURSES = 'UPDATE_PURSES';
 export const updatePurses = (data) => async (dispatch) => {
-  console.log('purses', data);
-  dispatch({
-    type: UPDATE_PURSES,
-    purses: data,
-  });
+  if (data[2].extent.length === 0) {
+    localStorage.removeItem('stock');
+  }
+  var stockStorage = localStorage.getItem('stock');
+  if (!!stockStorage) {
+    stockStorage = JSON.parse(stockStorage);
+    stockStorage.map((id) => dispatch(changeStatePursesPlant(id, State.PLANTED)));
+  } else {
+    dispatch({
+      type: UPDATE_PURSES,
+      purses: data,
+    });
+  }
 };
 
 export const UPDATE_PLANTS = 'UPDATE_PLANTS';
@@ -31,14 +39,6 @@ export const updatePlants = (plants) => (dispatch) => {
   dispatch({
     type: UPDATE_PLANTS,
     plants,
-  });
-};
-
-export const GET_ALL_PLANTS = 'GET_ALL_PLANTS';
-export const getAllPlants = () => (dispatch) => {
-  dispatch({
-    type: GET_ALL_PLANTS,
-    plants: plants_init,
   });
 };
 
@@ -52,6 +52,23 @@ export const changeStatePlant = (id, _state) => (dispatch, getState) => {
     type: CHANGE_STATE_PLANT,
     plants,
   });
+  console.log('plants', plants);
+};
+
+export const TEST = 'TEST';
+export const changeStatePursesPlant = (id, _state) => (dispatch, getState) => {
+  let state = getState();
+  let purses = state.purses;
+
+  if (purses[2]) {
+    var plant = purses[2].extent.filter((item) => item.plantId === id);
+    plant.map((item) => (item.state = _state));
+    console.log('pursessssssssssss', purses[2]);
+    dispatch({
+      type: TEST,
+      test: purses,
+    });
+  }
 };
 
 export const RESET_ALL = 'RESET_ALL';
@@ -136,5 +153,5 @@ export const createOffer = (plants) => async (dispatch, getState) => {
   doFetch({
     type: 'walletAddOffer',
     data: offer,
-  }).then(() => console.log('Aaaaaaaaaaaaaaaaaaaaaaa'));
+  });
 };

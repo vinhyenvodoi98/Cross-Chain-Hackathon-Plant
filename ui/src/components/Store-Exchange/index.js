@@ -1,11 +1,8 @@
 import { Row, Col, Button } from 'antd';
 import React from 'react';
 import './style.css';
-import { State } from 'constant';
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from 'store/actions';
-// import testPlant from 'images/bellpeppers1_background.png';
-// import oxyImg from 'images/oxygen_bubble_big.png';
 
 function Item(props) {
   return (
@@ -30,35 +27,32 @@ function Item(props) {
 
 function Store(props) {
   const dispatch = useDispatch();
-  const state = useSelector((state) => state);
+  const plants = useSelector((state) => state.plants);
 
   const handleBuyPlant = (item) => {
     const plants = [];
-    // dispatch(actions.changeStatePlant(item.plantId, State.INSTOCK, state.plants));
     plants.push(item);
     dispatch(actions.createOffer(plants));
-    console.log(item);
     props.onClose();
   };
 
-  const plants = state.plants.filter((item) => item.state === State.INSTORE);
-  if (plants.length === 0) {
-    return (
-      <div>
-        <div className='collection align-center'>
-          <strong>No plant in the store</strong>
+  return (
+    <div>
+      {plants.length !== 0 ? (
+        <Row gutter={[20, 20]} className='overflow bgc-smoke'>
+          {plants.map((item) => {
+            return <Item key={item.plantId} onBuyPlant={() => handleBuyPlant(item)} item={item} />;
+          })}
+        </Row>
+      ) : (
+        <div>
+          <div className='collection align-center'>
+            <strong>No plant in the store</strong>
+          </div>
         </div>
-      </div>
-    );
-  } else {
-    return (
-      <Row gutter={[20, 20]} className='overflow bgc-smoke'>
-        {plants.map((item) => {
-          return <Item key={item.plantId} onBuyPlant={() => handleBuyPlant(item)} item={item} />;
-        })}
-      </Row>
-    );
-  }
+      )}
+    </div>
+  );
 }
 
 export default Store;

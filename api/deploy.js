@@ -39,7 +39,8 @@ export default async function deployApi(
   const expectedAmountPerPlant = moolaAmountMath.make(22);
   console.log(expectedAmountPerPlant);
 
-  const MONEY_BRAND_REGKEY = await E.G(E(wallet).getIssuerNames(moolaIssuer)).brandRegKey;
+  const MONEY_BRAND_REGKEY = await E.G(E(wallet).getIssuerNames(moolaIssuer))
+    .brandRegKey;
 
   const issuerKeywordRecords = harden({ Money: moolaIssuer });
   const adminInvite = await E(zoe).makeInstance(
@@ -47,16 +48,16 @@ export default async function deployApi(
     issuerKeywordRecords,
     {
       name: [
-        "Lotus",
-        "Sun",
-        "plant3",
-        "plant4",
-        "plant5",
-        "plant6",
-        "plant7",
-        "plant8",
-        "plant9",
-        "plant10",
+        "Chamomile",
+        "Cherry blossom",
+        "Chinese lantern",
+        "Crocus",
+        "Daffodils",
+        "Dwarf jade",
+        "Dwarf papyrus",
+        "Easter lilycactus",
+        "Flamingo flower",
+        "Freesia",
       ],
       count: 10,
       plantImgs,
@@ -84,14 +85,20 @@ export default async function deployApi(
     instanceHandle
   );
   const plantIssuer = await E(publicAPI).getPlantIssuer();
-  const PLANT_ISSUER_REGKEY = await E(registry).register(`${CONTRACT_NAME}plant`, plantIssuer);
-  const PLANT_BRAND_REGKEY = await E(registry).register(`plant`, await E(plantIssuer).getBrand());
+  const PLANT_ISSUER_REGKEY = await E(registry).register(
+    `${CONTRACT_NAME}plant`,
+    plantIssuer
+  );
+  const PLANT_BRAND_REGKEY = await E(registry).register(
+    `plant`,
+    await E(plantIssuer).getBrand()
+  );
 
   console.log(`-- Contract Name: ${CONTRACT_NAME}`);
   console.log(`-- InstanceHandle Register Key: ${INSTANCE_REG_KEY}`);
   console.log(`-- PLANT_ISSUER_REGKEY: ${PLANT_ISSUER_REGKEY}`);
   console.log(`-- PLANT_BRAND_REGKEY: ${PLANT_BRAND_REGKEY}`);
-  console.log(`-- MONEY_BRAND_REGKEY: ${MONEY_BRAND_REGKEY}`)
+  console.log(`-- MONEY_BRAND_REGKEY: ${MONEY_BRAND_REGKEY}`);
 
   const { source, moduleFormat } = await bundleSource(
     pathResolve("./src/handler.js")

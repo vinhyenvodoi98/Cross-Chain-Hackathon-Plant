@@ -1,16 +1,18 @@
-:root {
-  --oxy-height: 15px;
-  --oxy-width: 15px;
-}
-
+body {
+    background-image: url(./images/sky-bg.png);
+    background-repeat: no-repeat;
+  
+   }
+  
 .bgc-dark {
   background-color: black;
 }
 
+
 .App {
   text-align: center;
-  width: 425px;
-  height: 100%;
+  width: 500px;
+  /* height: 100%; */
   margin: auto;
 }
 
@@ -67,6 +69,14 @@
 
 .center {
   margin: auto !important;
+}
+
+.center-ver {
+  margin: auto 0 !important;
+}
+
+.center-hor {
+  margin: 0 auto !important;
 }
 
 .mg-15px {

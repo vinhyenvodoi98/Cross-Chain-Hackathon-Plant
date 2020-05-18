@@ -19,7 +19,7 @@ function App() {
       <Header className='bgc-w h-50px p-10px r-bot-10px'>
         <Top />
       </Header>
-      <Content className='opa p-10px'>
+      <Content className='p-10px'>
         <Middle />
       </Content>
       <Footer className='h-50px p-10px m-10px r-top-10px'>
